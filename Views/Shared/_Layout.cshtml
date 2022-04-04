@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AgriShop</title>
+     <meta name="author" content="mironcoder" />
+    <meta name="email" content="mironcoder@gmail.com" />
+    <meta name="profile" content="https://themeforest.net/user/mironcoder" />
+    <meta name="template" content="Organe" />
+    <meta name="title" content="Ecomart" />
+    <meta name="keywords"
+          content="organe, organic, food, shop, ecommerce, store, html, agriculture, vegetable, organic food, organic product, organic farm, organic life, organic shop, food store" />
+    <title>
+        FARMERS MARKET - Trái Cây &amp; Thực Phẩm Sạch Việt Nam &amp; Nhập Khẩu
+    </title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" href="//theme.hstatic.net/1000141988/1000763324/14/favicon.png?v=294" type="image/png">
+    @*<script src=" /js/vendor/jquery.min.js"></script>*@
+    <link rel="stylesheet" href=" /fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href=" /fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href=" /fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href=" /css/vendor/nice-select.min.css" />
+    <link rel="stylesheet" href=" /css/vendor/venobox.min.css" />
+    <link rel="stylesheet" href=" /css/vendor/slick.min.css" />
+    <link rel="stylesheet" href=" /css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href=" /css/custom/mainnnn.css" />
+    <link rel="stylesheet" href=" /css/custom/index.css" />
+    <link href=" /css/vendor/toastr.css" rel="stylesheet" />
+    @RenderSection("styles", required: false)
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AgriShop1111</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - AgriShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
