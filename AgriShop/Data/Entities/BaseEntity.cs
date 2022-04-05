@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgriShop.Data.Entities
+namespace AnBinhMarket.Data.Entities
 {
     public class BaseEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AgriShop.Areas.Admin.Models
+namespace AnBinhMarket.Areas.Admin.Models
 {
     public class TaiKhoan
     {

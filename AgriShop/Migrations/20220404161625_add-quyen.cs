@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace AgriShop.Migrations
+namespace AnBinhMarket.Migrations
 {
     public partial class addquyen : Migration
     {

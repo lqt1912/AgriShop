@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace AgriShop.Migrations
+namespace AnBinhMarket.Migrations
 {
     public partial class createdatabase : Migration
     {

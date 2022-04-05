@@ -1,4 +1,4 @@
-﻿namespace AgriShop.Data.Entities
+﻿namespace AnBinhMarket.Data.Entities
 {
     public class LienHe :BaseEntity
     {

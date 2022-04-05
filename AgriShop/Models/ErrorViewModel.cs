@@ -1,4 +1,4 @@
-namespace AgriShop.Models
+namespace AnBinhMarket.Models
 {
     public class ErrorViewModel
     {

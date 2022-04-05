@@ -1,8 +1,8 @@
-﻿using AgriShop.Data.Entities;
+﻿using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgriShop.Data
+namespace AnBinhMarket.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole , Guid>
     {

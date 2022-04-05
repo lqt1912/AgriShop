@@ -1,8 +1,8 @@
-﻿using AgriShop.Data;
+﻿using AnBinhMarket.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace AgriShop.Areas.Admin.Controllers
+namespace AnBinhMarket.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class FeedbackController : CustomController

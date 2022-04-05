@@ -1,8 +1,8 @@
-﻿using AgriShop.Models;
+﻿using AnBinhMarket.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace AgriShop.Controllers
+namespace AnBinhMarket.Controllers
 {
     public class HomeController : Controller
     {

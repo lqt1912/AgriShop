@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AgriShop.Areas.Admin.Controllers
+namespace AnBinhMarket.Areas.Admin.Controllers
 {
     public class ManageController : Controller
     {

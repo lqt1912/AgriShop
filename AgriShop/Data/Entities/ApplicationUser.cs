@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace AgriShop.Data.Entities
+namespace AnBinhMarket.Data.Entities
 {
     public class ApplicationUser : IdentityUser<Guid>
     {

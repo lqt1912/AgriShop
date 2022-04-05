@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AgriShop.Data.Entities
+namespace AnBinhMarket.Data.Entities
 {
     public class HoaDon :BaseEntity
     {

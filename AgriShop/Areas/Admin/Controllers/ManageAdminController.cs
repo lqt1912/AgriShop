@@ -1,10 +1,10 @@
-﻿using AgriShop.Areas.Admin.Models;
-using AgriShop.Data;
-using AgriShop.Data.Entities;
+﻿using AnBinhMarket.Areas.Admin.Models;
+using AnBinhMarket.Data;
+using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AgriShop.Areas.Admin.Controllers
+namespace AnBinhMarket.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ManageAdminController : Controller

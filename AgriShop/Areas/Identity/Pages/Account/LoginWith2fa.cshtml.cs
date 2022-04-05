@@ -9,13 +9,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using AgriShop.Data.Entities;
+using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace AgriShop.Areas.Identity.Pages.Account
+namespace AnBinhMarket.Areas.Identity.Pages.Account
 {
     public class LoginWith2faModel : PageModel
     {

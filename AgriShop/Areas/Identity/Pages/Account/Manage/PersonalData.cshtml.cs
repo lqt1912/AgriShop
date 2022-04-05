@@ -2,13 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 using System;
 using System.Threading.Tasks;
-using AgriShop.Data.Entities;
+using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace AgriShop.Areas.Identity.Pages.Account.Manage
+namespace AnBinhMarket.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {

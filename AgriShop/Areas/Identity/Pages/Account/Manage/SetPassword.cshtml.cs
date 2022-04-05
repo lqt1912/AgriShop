@@ -5,12 +5,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using AgriShop.Data.Entities;
+using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AgriShop.Areas.Identity.Pages.Account.Manage
+namespace AnBinhMarket.Areas.Identity.Pages.Account.Manage
 {
     public class SetPasswordModel : PageModel
     {
