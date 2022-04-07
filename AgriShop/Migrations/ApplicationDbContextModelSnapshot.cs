@@ -84,6 +84,9 @@ namespace AnBinhMarket.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -175,7 +178,10 @@ namespace AnBinhMarket.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MaDanhMuc")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaDanhMuc")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayCapNhat")
@@ -329,10 +335,13 @@ namespace AnBinhMarket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("MaDanhMuc")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MaSP")
+                    b.Property<int?>("MaSP")
                         .HasColumnType("int");
 
                     b.Property<Guid>("MaTH")
@@ -374,7 +383,10 @@ namespace AnBinhMarket.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MaTH")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaTH")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayCapNhat")
@@ -402,7 +414,10 @@ namespace AnBinhMarket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaTinTuc")
+                    b.Property<bool>("IsDDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaTinTuc")
                         .HasColumnType("int");
 
                     b.Property<string>("MoTaChiTiet")

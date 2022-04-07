@@ -46,6 +46,10 @@ namespace AnBinhMarket.Areas.Admin.Models
         [DisplayName("Quyền")]
         public int Quyen { get; set; }
 
+
+        public string QuyenGuid { get; set; }
+
+
         [DisplayName("Trạng thái")]
         [UIHint("Boolean")]
         public bool TrangThai { get; set; }

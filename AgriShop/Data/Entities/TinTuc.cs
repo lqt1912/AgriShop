@@ -4,7 +4,7 @@ namespace AnBinhMarket.Data.Entities
 {
     public class TinTuc : BaseEntity
     {
-        public int MaTinTuc { get; set; }
+        public int? MaTinTuc { get; set; }
         public string TieuDe { get; set; }
         public string MoTaNgan { get; set; }
         public string MoTaChiTiet { get; set; }
@@ -17,5 +17,6 @@ namespace AnBinhMarket.Data.Entities
 
         [ForeignKey("TenTaiKhoan")]
         public virtual ApplicationUser TaiKhoan { get; set; }
+        public bool IsDDeleted { get; set; } = false;
     }
 }

@@ -1098,6 +1098,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\products\" />

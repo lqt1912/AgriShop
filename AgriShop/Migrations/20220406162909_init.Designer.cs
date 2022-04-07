@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnBinhMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220404142502_create-database")]
-    partial class createdatabase
+    [Migration("20220406162909_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,6 +68,10 @@ namespace AnBinhMarket.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DiaChi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -80,6 +84,9 @@ namespace AnBinhMarket.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -107,6 +114,9 @@ namespace AnBinhMarket.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Quyen")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -170,7 +180,10 @@ namespace AnBinhMarket.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MaDanhMuc")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaDanhMuc")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayCapNhat")
@@ -324,10 +337,13 @@ namespace AnBinhMarket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("MaDanhMuc")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MaSP")
+                    b.Property<int?>("MaSP")
                         .HasColumnType("int");
 
                     b.Property<Guid>("MaTH")
@@ -369,7 +385,10 @@ namespace AnBinhMarket.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MaTH")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaTH")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayCapNhat")
@@ -397,7 +416,10 @@ namespace AnBinhMarket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaTinTuc")
+                    b.Property<bool>("IsDDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaTinTuc")
                         .HasColumnType("int");
 
                     b.Property<string>("MoTaChiTiet")

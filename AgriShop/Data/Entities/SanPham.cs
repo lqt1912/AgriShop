@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnBinhMarket.Data.Entities
 {
-    public class SanPham: BaseEntity 
+    public class SanPham
     {
-        public int MaSP { get; set; }
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public int? MaSP { get; set; }
         public string TenSP { get; set; }
         public string TrongLuong { get; set; }
         public string MoTa { get; set; }
@@ -16,11 +19,13 @@ namespace AnBinhMarket.Data.Entities
 
         public Guid MaDanhMuc { get; set; }
         [ForeignKey("MaDanhMuc")]
-        public virtual DanhMuc DanhMuc { get; set; }
+        public  DanhMuc DanhMuc { get; set; }
 
         public Guid MaTH { get; set; }
         [ForeignKey("MaTH")]
         public virtual ThuongHieu ThuongHieu { get; set; }
         public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

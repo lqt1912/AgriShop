@@ -12,6 +12,7 @@ namespace AnBinhMarket.Data.Entities
         public string  DiaChi { get; set; }
         public virtual ICollection<GioHang> GioHangs { get; set; }
         public virtual ICollection<TinTuc> TinTucs { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
 
     }

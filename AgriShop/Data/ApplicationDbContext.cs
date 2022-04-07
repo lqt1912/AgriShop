@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnBinhMarket.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole , Guid>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public virtual DbSet<ChiTietGioHang> ChiTietGioHangs { get; set; }
         public virtual DbSet<DanhMuc> DanhMucs { get; set; }
@@ -19,6 +19,13 @@ namespace AnBinhMarket.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            this.ChangeTracker.LazyLoadingEnabled = true;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
         }
     }
 }

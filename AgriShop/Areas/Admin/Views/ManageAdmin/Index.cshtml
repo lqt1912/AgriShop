@@ -6,14 +6,14 @@
 }
 
 @section styles{
-    <!-- Datepicker CSS -->
-    <link rel="stylesheet" href="/Asset/css/bootstrap-datetimepicker.min.css" />
+<!-- Datepicker CSS -->
+<link rel="stylesheet" href="/Asset/css/bootstrap-datetimepicker.min.css" />
 
-    <!-- Datatables CSS -->
-    <link rel="stylesheet"
-          href="/Asset/plugins/datatables/datatables.min.css" />
+<!-- Datatables CSS -->
+<link rel="stylesheet"
+      href="/Asset/plugins/datatables/datatables.min.css" />
 
-    <link href="/Asset/css/material-dashboard.css" rel="stylesheet" />
+<link href="/Asset/css/material-dashboard.css" rel="stylesheet" />
 }
 
 <div class="content container-fluid">
@@ -63,14 +63,21 @@
 
                                     <tr>
                                         <td>@Html.DisplayFor(modelItem => item.UserName)</td>
-                                      
 
-                                        <td>@Html.DisplayFor(modelItem =>item.PasswordHash)</td>
 
+                                        <td>*********</td>
+                                        @if (item.Quyen == 1)
+                                        {
                                             <td>
                                                 Quản trị viên
                                             </td>
-
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                Nhân viên
+                                            </td>
+                                        }
 
                                         <td>
                                             @if (item.IsActive == true)
@@ -79,7 +86,7 @@
                                                 {
                                                     <div class="togglebutton">
                                                         <label>
-                                                            <input type="checkbox" checked="checked" class="btn-active" data-id="@item.UserName">
+                                                            <input type="checkbox" checked="checked" class="btn-active" data-id="@item.Id">
                                                             <span class="toggle"></span>
                                                         </label>
                                                     </div>
@@ -88,7 +95,28 @@
                                                 {
                                                     <div class="togglebutton">
                                                         <label>
-                                                            <input type="checkbox" checked="checked" class="btn-active" data-id="@item.UserName" disabled="disabled">
+                                                            <input type="checkbox" checked="checked" class="btn-active" data-id="@item.Id" disabled="disabled">
+                                                            <span class="toggle"></span>
+                                                        </label>
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (!item.UserName.Equals(ViewBag.CurrentUserName))
+                                                {
+                                                    <div class="togglebutton">
+                                                        <label>
+                                                            <input type="checkbox" class="btn-active" data-id="@item.Id">
+                                                            <span class="toggle"></span>
+                                                        </label>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="togglebutton">
+                                                        <label>
+                                                            <input type="checkbox" class="btn-active" data-id="@item.Id" disabled="disabled">
                                                             <span class="toggle"></span>
                                                         </label>
                                                     </div>
@@ -96,18 +124,18 @@
                                             }
 
                                         <td class="text-right">
-                                            <a href="@Url.Action("Details", "ManageAdminAccount", new { id = item.Id})"
-                                               class="btn btn-sm bg-primary-light mr-2">
+                                            <a href="@Url.Action("Details", "ManageAdmin", new { id = item.Id})"
+                                           class="btn btn-sm bg-primary-light mr-2">
                                                 <i class="far fa-eye mr-1"></i> Chi tiết
                                             </a>
 
-                                            @if(!item.UserName.Equals(ViewBag.CurrentUserName))
-                                            {
-                                                <a href="@Url.Action("Delete", "ManageAdminAccount", new { id = item.Id})"
-                                                   class="btn btn-sm bg-danger-light mr-2">
+                                                @if (!item.UserName.Equals(ViewBag.CurrentUserName))
+                                                {
+                                                <a href="@Url.Action("Delete", "ManageAdmin", new { id = item.Id})"
+                                           class="btn btn-sm bg-danger-light mr-2">
                                                     <i class="far fa-trash-alt mr-1"></i> Xoá
                                                 </a>
-                                            }
+                                                }
                                         </td>
                                     </tr>
                                 }
@@ -120,3 +148,5 @@
         </div>
     </div>
 </div>
+   <script src="/Asset/js/jquery-3.5.0.min.js"></script>
+ <script src="/Asset/js/tkquantri_status.js"></script>
