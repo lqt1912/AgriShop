@@ -1,0 +1,93 @@
+﻿@using System.Web
+@model AnBinhMarket.Data.Entities.SanPham
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var ImagePath = "~/products/" + Model.HinhAnh;
+}
+
+
+@section Scripts {
+    <script href="~/bundles/jqueryval"> </script>
+
+    <script src="/Asset/plugins/ckeditor/ckeditor.js"></script>
+    <script>
+        var editor = CKEDITOR.replace('txtContent', {
+            customConfig: '/Asset/plugins/ckeditor/config.js'
+        })
+    </script>
+}
+
+
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Xem chi tiết sản phẩm @Model.TenSP</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Form -->
+                    <form method="post">
+                        <div class="form-group">
+                            <label><strong>Mã sản phẩm:</strong> </label>
+                            @Html.DisplayFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Tên sản phẩm:</strong> </label>
+                            @Html.DisplayFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4"><strong>Ảnh đại diện:</strong> </label>
+                            <img id="output" class="img-rounded" width="200" height="200" src="@Url.Content(@ImagePath)" alt="Ảnh" />
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Giá bán:</strong> </label>
+                            @{
+                                decimal giaNum = Model.Gia;
+                                string giaStr = string.Format("{0:0,000}", giaNum) + " VND";
+                            }
+                            @Html.DisplayFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" }, value = "@giaStr" })
+
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Thương hiệu:</strong> </label>
+                            @Html.DisplayFor(model => model.ThuongHieu.TenHuongHieu, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Trọng lượng:</strong> </label>
+                            @Html.DisplayFor(model => model.TrongLuong, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Số lượng:</strong> </label>
+                            @Html.DisplayFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Danh mục:</strong> </label>
+                            @Html.DisplayFor(model => model.DanhMuc.TenDanhMuc, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Mô tả:</strong> </label>
+                            <br />
+                           @Html.Raw(HttpUtility.HtmlDecode(Model.MoTa))
+                        </div>
+
+                        <div class="mt-4">
+                            <a href="@Url.Action("Index","ManageProduct")" class="btn btn-link">Quay lại</a>
+                        </div>
+                    </form>
+                    <!-- /Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

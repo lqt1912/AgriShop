@@ -3,6 +3,7 @@ using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Web;
 
 namespace AnBinhMarket.Areas.Admin.Controllers
 {
@@ -20,7 +21,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult Index(string searchString)
         {
-            var sanphams = _context.SanPhams.Include(x=>x.DanhMuc).ToList();
+            var sanphams = _context.SanPhams.Include(x => x.DanhMuc).Where(x=>!x.IsDeleted).ToList();
             if (!string.IsNullOrEmpty(searchString))
             {
                 sanphams = sanphams.Where(p => p.TenSP.Contains(searchString)).ToList();
@@ -32,6 +33,20 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             ViewBag.MaDanhMuc = new SelectList(_context.DanhMucs, "Id", "TenDanhMuc");
             ViewBag.MaTH = new SelectList(_context.ThuongHieux, "Id", "TenHuongHieu");
             return View();
+        }
+
+        public IActionResult Details(Guid id)
+        {
+
+            var sanPhams = _context.SanPhams.Include(x => x.DanhMuc).Include(x => x.ThuongHieu);
+            var sanPham = sanPhams.FirstOrDefault(x => x.Id == id);
+            if (sanPham == null)
+            {
+                return NotFound();
+            }
+            ViewBag.MaDanhMuc = new SelectList(_context.DanhMucs, "Id", "TenDanhMuc", sanPham.MaDanhMuc);
+            ViewBag.MaTH = new SelectList(_context.ThuongHieux, "Id", "TenThuongHieu", sanPham.MaTH);
+            return View(sanPham);
         }
 
         [HttpPost]
@@ -89,6 +104,108 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 ViewBag.Error = "Dữ liệu không hợp lệ" + ex.Message;
                 return View(sanPham);
             }
+        }
+
+        public IActionResult Edit(Guid id)
+        {
+            var product = _context.SanPhams.Find(id);
+            if (product == null)
+                return NotFound();
+            product.MoTa = HttpUtility.HtmlDecode(product.MoTa);
+
+            ViewBag.MaDanhMuc = new SelectList(_context.DanhMucs, "Id", "TenDanhMuc", product.MaDanhMuc);
+            ViewBag.MaTH = new SelectList(_context.ThuongHieux, "Id", "TenHuongHieu", product.MaTH);
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(SanPham sanPham)
+        {
+            try
+            {
+                var _sanPham = _context.SanPhams.Find(sanPham.Id);
+                if (_sanPham != null)
+                {
+                    _sanPham.TenSP = sanPham.TenSP;
+                    _sanPham.MoTa = sanPham.MoTa;
+                    _sanPham.MaTH = sanPham.MaTH;
+                    _sanPham.MaDanhMuc = sanPham.MaDanhMuc;
+                    _sanPham.Gia = sanPham.Gia;
+                    _sanPham.SoLuong = sanPham.SoLuong;
+                    _sanPham.MaTH = sanPham.MaTH;
+                    _sanPham.NgayCapNhat = DateTime.Now;
+                    _sanPham.NgayTao = sanPham.NgayTao;
+                    _sanPham.TrongLuong = sanPham.TrongLuong;
+
+                    var fileArray = Request.Form.Files;
+                    if (fileArray.Count > 0)
+                    {
+                        var f = fileArray[0];
+                        if (f != null && f.Length > 0)
+                        {
+                            string FileName = System.IO.Path.GetFileName(f.FileName);
+                            string webRootPath = _webHostEnvironment.WebRootPath;
+                            string contentRootPath = _webHostEnvironment.ContentRootPath;
+
+                            string path = "";
+                            path = Path.Combine(webRootPath, "products");
+                            string UploadPath = path + '\\' + FileName;
+
+                            using (Stream fileStream = new FileStream(UploadPath, FileMode.Create))
+                            {
+                                await f.CopyToAsync(fileStream);
+                            }
+                            _sanPham.HinhAnh = FileName;
+                        }
+                    }
+                    _context.SanPhams.Update(_sanPham);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MaDanhMuc = new SelectList(_context.DanhMucs, "Id", "TenDanhMuc", sanPham.MaDanhMuc);
+                ViewBag.MaTH = new SelectList(_context.ThuongHieux, "Id", "TenHuongHieu", sanPham.MaTH);
+                ViewBag.Error = "Dữ liệu không hợp lệ" + ex.Message;
+                return View(sanPham);
+            }
+        }
+
+        public IActionResult Delete(Guid id)
+        {
+            var sanPhams = _context.SanPhams.Include(x => x.DanhMuc).Include(x => x.ThuongHieu);
+            var sanPham = sanPhams.FirstOrDefault(x => x.Id == id);
+            if (sanPham == null)
+            {
+                return NotFound();
+            }
+            return View(sanPham);
+        }
+
+        // POST: Admin/SanPhams/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(Guid id)
+        {
+            var sanPham = _context.SanPhams.Find(id);
+            try
+            {
+                if (sanPham!=null){
+                    sanPham.IsDeleted = true;
+                    _context.SanPhams.Update(sanPham);
+                    _context.SaveChanges();
+                }
+                setAlert("Xoá sản phẩm thành công!", "success");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Dữ liệu không hợp lệ" + ex.Message;
+                return View(sanPham);
+            }
+
+
         }
     }
 }
