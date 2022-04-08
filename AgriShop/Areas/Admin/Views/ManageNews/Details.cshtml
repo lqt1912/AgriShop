@@ -1,4 +1,5 @@
-﻿@model AnBinhMarket.Data.Entities.TinTuc
+﻿@using System.Web
+@model AnBinhMarket.Data.Entities.TinTuc
 
 @{
     ViewData["Title"] = "Details";
@@ -45,7 +46,7 @@
                         <div class="form-group">
                             <label><strong>Mô tả:</strong></label>
                             <br />
-                            @Html.Raw(@Model.MoTaChiTiet)
+                            @Html.Raw(HttpUtility.HtmlDecode(Model.MoTaChiTiet))
                         </div>
                         <div class="form-group">
                             <label><strong>Tên người viết:</strong></label>

@@ -1,8 +1,13 @@
-﻿namespace AnBinhMarket.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AnBinhMarket.Data.Entities
 {
     public class ThuongHieu: BaseEntity
     {
         public int?  MaTH { get; set; }
+
+        [Required(ErrorMessage = "Tên thương hiệu không được để trống")]
+        [StringLength(150)]
         public string  TenHuongHieu { get; set; }
 
         public DateTime NgayTao { get; set; } = DateTime.Now;

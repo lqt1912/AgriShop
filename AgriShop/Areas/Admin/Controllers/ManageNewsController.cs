@@ -3,6 +3,8 @@ using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Web;
 
 namespace AnBinhMarket.Areas.Admin.Controllers
 {
@@ -106,12 +108,15 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         }
         public IActionResult Edit(Guid id)
         {
+            var tinTucs = _context.TinTucs.Include(x => x.TaiKhoan).ToList();
 
-            var tinTuc = _context.TinTucs.Find(id);
+            var tinTuc = tinTucs.FirstOrDefault(x=>x.Id ==id);
             if (tinTuc == null)
             {
                 return NotFound();
             }
+            tinTuc.MoTaChiTiet = HttpUtility.HtmlDecode(tinTuc.MoTaChiTiet);
+
             return View(tinTuc);
         }
 

@@ -8,10 +8,26 @@ namespace AnBinhMarket.Data.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
         public int? MaSP { get; set; }
+
+        [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
+        [StringLength(200)]
         public string TenSP { get; set; }
+
+        [Required(ErrorMessage = "Trọng lượng không được để trống")]
+        [StringLength(100)]
         public string TrongLuong { get; set; }
+
+        [Required(ErrorMessage = "Mô tả không được để trống")]
+        [Column(TypeName = "ntext")]
         public string MoTa { get; set; }
+
+        [Required(ErrorMessage = "Giá sản phẩm không được để trống!")]
+        [RegularExpression("^[0-9]*\\.?[0-9]*$", ErrorMessage = "Giá sản phẩm phải là một số.")]
+        [DisplayFormat(DataFormatString = "{0:#,###}")]
         public decimal Gia { get; set; }
+
+        [Required(ErrorMessage = "Hình ảnh không được để trống")]
+        [StringLength(100)]
         public string HinhAnh { get; set; }
         public int SoLuong { get; set; }
         public DateTime? NgayTao { get; set; }
