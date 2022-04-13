@@ -4,6 +4,7 @@ using AnBinhMarket.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using X.PagedList;
 
 namespace AnBinhMarket.Controllers
 {
@@ -22,18 +23,12 @@ namespace AnBinhMarket.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? page)
         {
-            try
-            {
-                var a = await _userManager.GetUserAsync(User);
-                var b = await _userManager.GetRolesAsync(a);
-            }
-            catch (Exception ex)
-            {
-                ///
-            }
-            return View();
+            var products = _context.SanPhams.OrderByDescending(p => p.MaSP);
+            int pageNumber = (page ?? 1);
+
+            return View(products.ToPagedList(pageNumber, 10));
         }
 
         public IActionResult Privacy()

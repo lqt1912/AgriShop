@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using AnBinhMarket.Data;
+using AnBinhMarket.Services.EmailServices;
 
 namespace AnBinhMarket.Areas.Identity.Pages.Account
 {
@@ -30,13 +32,15 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
+        private readonly IEmailService emailService;
+        private readonly ApplicationDbContext _context;
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context, IEmailService emailService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +48,8 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
+            this.emailService = emailService;
         }
 
         /// <summary>
@@ -98,6 +104,22 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name ="Số điện thoại")]
+            [StringLength(12, MinimumLength =6)]
+            [DataType(DataType.PhoneNumber)]
+            public string  PhoneNumber { get; set; }
+
+            [Required, Display(Name ="Họ và tên")]
+            public string  HoTen { get; set; }
+
+            [Required, Display(Name ="Tên đăng nhập")]
+            public string  UserName { get; set; }
+
+            [Required, Display(Name ="Địa chỉ")]
+            public string  DiaChi { get; set; }
+
         }
 
 
@@ -115,7 +137,12 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                user.PhoneNumber = Input.PhoneNumber;
+                user.DiaChi = Input.DiaChi;
+                user.HoTen = Input.HoTen;
+                user.Quyen = 0;
+                user.IsActive = true;
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -124,6 +151,14 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    _context.UserRoles.Add(new IdentityUserRole<Guid>
+                    {
+                        RoleId = Guid.Parse("745599de-2faf-4989-b33b-9b5e0905c07f"),
+                        UserId =Guid.Parse(userId)
+                    });
+                    _context.SaveChanges();
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -131,9 +166,19 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
+                    var message = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+                    var mailRequest = new MailRequest()
+                    {
+                        ToEmail = Input.Email,
+                        Subject = "Mã kích hoạt tài khoản CoStudy",
+                        Body = $@"<h4>Xác thực thông tin email</h4>
+                         <p>Cảm ơn bạn đã đăng kí sử dụng dịch vụ!</p>
+                         {message}"
+                    };
+                    await emailService.SendEmailAsync(mailRequest);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

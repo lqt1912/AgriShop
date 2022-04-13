@@ -1,0 +1,30 @@
+﻿@using AnBinhMarket.Data.Entities
+@using System.Web
+@model TinTuc
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/css/custom/new-detail.css" rel="stylesheet" />
+}
+
+
+<section class="section recent-part">
+    <div class="container bg-white py-4 my-3">
+        <div class="row new_item">
+            <h5 class="title_content text-center">
+                <a>@Model.TieuDe</a>
+            </h5>
+            <p class="author">@Model.TaiKhoan.HoTen</p>
+            <p class="date_new mb-3">@Model.NgayCapNhat</p>
+            <hr />
+            <p>
+                @Html.Raw(HttpUtility.HtmlDecode(Model.MoTaChiTiet))
+            </p>
+        </div>
+
+    </div>
+</section>

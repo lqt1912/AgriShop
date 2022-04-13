@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AnBinhMarket</title>
-     <meta name="author" content="mironcoder" />
+    <meta name="author" content="mironcoder" />
     <meta name="email" content="mironcoder@gmail.com" />
     <meta name="profile" content="https://themeforest.net/user/mironcoder" />
     <meta name="template" content="Organe" />
@@ -12,7 +12,7 @@
     <meta name="keywords"
           content="organe, organic, food, shop, ecommerce, store, html, agriculture, vegetable, organic food, organic product, organic farm, organic life, organic shop, food store" />
     <title>
-        FARMERS MARKET - Trái Cây &amp; Thực Phẩm Sạch Việt Nam &amp; Nhập Khẩu
+        ANBINH MARKET - Trái Cây &amp; Thực Phẩm Sạch Việt Nam &amp; Nhập Khẩu
     </title>
     <link rel="shortcut icon" type="image/png" href="/favicon.png" />
     <link rel="shortcut icon" href="//theme.hstatic.net/1000141988/1000763324/14/favicon.png?v=294" type="image/png">
@@ -28,58 +28,174 @@
     <link rel="stylesheet" href=" /css/custom/index.css" />
     <link href=" /css/vendor/toastr.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     @RenderSection("styles", required: false)
     <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 </head>
 <style>
-body{
-    font-family: 'Montserrat', sans-serif !important;
-    font-weight: 300
-}
+    body {
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 300
+    }
 </style>
 <body style="">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AnBinh Market</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Manage" asp-action="Index">Admin</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="back-drop">
     </div>
 
-    <footer class="border-top footer text-muted">
+    @await  Component.InvokeAsync("_Header")
+    @await Component.InvokeAsync("_MenuPC")
+    @await Component.InvokeAsync("_MenuMobile")
+
+    @RenderBody()
+
+    <section class="intro-part">
         <div class="container">
-            &copy; 2022 - AnBinhMarket - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row intro-content">
+                <h4 class="text-center my-3">Đăng ký nhận thông tin khuyến mãi</h4>
+                <div class="input-group mb-3">
+                    <input class="register-infor" type="text" placeholder="Đăng ký nhận thông tin khuyến mãi">
+                    <div class="input-group-append">
+                        <button class="btnSubmit" type="button">Đăng ký</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer-part">
+        <div class="container bg-white py-4">
+            <div class="row">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget">
+                        <h5 class="footer-title">HỖ TRỢ KHÁCH HÀNG</h5>
+                        <div class="footer-links">
+                            <ul>
+                                <li><a href="#">Chính sách giao hàng</a></li>
+                                <li><a href="#">Chính sách đổi trả</a></li>
+                                <li><a href="#">Chính sách đổi trả</a></li>
+                                <li><a href="#">Chính sách thành viên</a></li>
+                                <li><a href="#">Hướng dẫn mua hàng và hoàn tiền</a></li>
+                            </ul>
+                        </div>
+                        <h6><b>Tổng đài chăm sóc khách hàng</b></h6>
+                        <p>
+                            - Hotline: 1800 69 30 | 0971 85 32 32 <br />
+                            - Thời gian hoạt động:<br />
+                            &nbsp; + Thứ 2 - 6: 8h - 17h <br />
+                            &nbsp; + Thứ 7: 8h - 12h30
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget contact">
+                        <h5 class="footer-title">VỀ FARMERS MARKET</h5>
+                        <div class="footer-links">
+                            <ul>
+                                <li><a href="./introduce.html">Giới thiệu</a></li>
+                                <li><a href="./contact.html">Liên hệ</a></li>
+                                <li><a href="#">Tuyển dụng</a></li>
+                            </ul>
+                        </div>
+                        <p>
+                            Giấy Phép Bán Lẻ Rượu:<br />
+                            -Chi nhánh Nguyễn Thị Minh Khai:<br />
+                            Số 73/GP-PKT cấp ngày 16/12/2019<br />
+                            -Chi nhánh Hoàng Hoa Thám:<br />
+                            Số 32/2020/GP-PKT cấp ngày 24/08/2020<br />
+                            -Chi nhánh Phan Xích Long:<br />
+                            Số 186/GP-PKT cấp ngày 25/12/2019<br />
+                            -Chi nhánh Nguyễn Thị Thập:<br />
+                            Số 1603/GP-PKT cấp ngày 21/12/2019<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget">
+                        <h5 class="footer-title">HỆ THỐNG CỬA HÀNG </h5>
+                        <p>
+                            - Thời gian hoạt động:<br />
+                            - Từ thứ 2 đến chủ nhật:<br />
+                            &nbsp; +Giờ mở cửa: 6h30 - 21h <br />
+                            &nbsp; + Giờ tư vấn: 6h30 - 22h30
+                        </p>
+                        <p class="footer-title">AnBinh Market Nguyễn Thị Minh Khai</p>
+                        <p>
+                            Số 18 Minh Khai, Hà Nội <br />
+                            0941 612 332 | 0941 602 332<br />
+                            0931 858 198 | 0941 052 332<br />
+                        </p>
+                        <p class="footer-title">AnBinh Market Hoàng Hoa Thám</p>
+                        <p>
+                            Số 59 Hoàng Hoa Thám, Ba Đình, Hà Nội <br />
+                            0936 836 788 | 0941 632 332<br />
+                            0941 622 332 | 0941 062 332<br />
+                        </p>
+                        <p class="footer-title">AnBinh Market Nguyễn Thị Thập</p>
+                        <p>
+                            486 Nguyễn Thị Thập, Tân Quy, Quận 7 <br />
+                            0941 072 332 | 0906 988 805<br />
+                            0941 642 332 | 0941 652 332<br />
+                        </p>
+                        <p class="footer-title">AnBinh Market Phan Xích Long</p>
+                        <p>
+                            218 Phan Xích Long, Phường 2, Phú Nhuận <br />
+                            0941 072 332 | 0906 988 805<br />
+                            0941 642 332 | 0941 652 332<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget">
+                        <h3 class="footer-title">THEO DÕI CHÚNG TÔI</h3>
+                        <p class="footer-desc">
+                            Ứng dụng AnBinh Market đã có trên Google Play & App Store. Tải ứng
+                            dụng ngay!
+                        </p>
+                        <div class="footer-app">
+                            <a href="#"><img src="~/images/google-store.png" alt="google" /></a><a href="#">
+                                <img src="~/images/app-store.png" alt="app" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-bottom">
+                        <p class="footer-copytext">
+                            AnBinh' MARKET - Trái Cây & Thực Phẩm Sạch Việt Nam
+                        </p>
+                        <div class="footer-card">
+                            <a href="#"><img src="~/images/01.jpg" alt="payment" /></a><a href="#">
+                                <img src="~/images/02.jpg" alt="payment" />
+                            </a><a href="#">
+                                <img src="~/images/03.jpg"
+                                     alt="payment" />
+                            </a><a href="#"><img src="~/images/04.jpg" alt="payment" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </footer>
+    <script src="/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/js/vendor/popper.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+    <script src="/js/vendor/nice-select.min.js"></script>
+    <script src="/js/vendor/venobox.min.js"></script>
+    <script src="/js/vendor/countdown.min.js"></script>
+    <script src="/js/vendor/slick.min.js"></script>
+    <script src="/js/custom/nice-select.js"></script>
+    <script src="/js/custom/countdown.js"></script>
+    <script src="/js/custom/accordion.js"></script>
+    <script src="/js/custom/venobox.js"></script>
+    <script src="/js/custom/slick.js"></script>
+    <script src="/js/vendor/toastr.js"></script>
+    <script src="/js/custom/main.js"></script>
+    <script src="~/Asset/js/notification.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

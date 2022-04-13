@@ -1,0 +1,13 @@
+﻿@using AnBinhMarket.Data.Entities
+@model DanhMuc
+<section class="inner-section single-banner">
+    <div class="container">
+        <h2 id="hdk-category-name">@Model.TenDanhMuc</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                @Model.TenDanhMuc
+            </li>
+        </ol>
+    </div>
+</section>

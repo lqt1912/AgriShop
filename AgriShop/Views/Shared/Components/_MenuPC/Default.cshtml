@@ -1,0 +1,53 @@
+﻿@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
+@model IEnumerable<DanhMuc>
+<nav class="navbar-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="navbar-content">
+                    <ul class="navbar-list">
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","Home")">Trang chủ</a>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link dropdown-arrow" href="@Url.Action("Index","Home")">Danh mục sản phẩm</a>
+                            <ul class="dropdown-position-list">
+                                @foreach (var item in Model)
+                                {
+                                    <li><a href="@Url.Action("Detail","Category", new { id = item.Id })">@item.TenDanhMuc</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","News")">Tin tức</a>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","Introduce")">Giới thiệu</a>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
+                        </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                        {
+                            <li class="navbar-item dropdown">
+                                <a class="navbar-link" href="@Url.Action("Index", "Manage" , new {Area = "Admin"})">Admin</a>
+                            </li>
+                        }
+
+                    </ul>
+                    <div class="navbar-info-group">
+                        <div class="navbar-info">
+                            <i class="icofont-ui-touch-phone"></i>
+                            <p><small>Hotline</small><span>1900 003 572</span></p>
+                        </div>
+                        <div class="navbar-info">
+                            <i class="icofont-ui-email"></i>
+                            <p><small>Email</small><span>farmermarket@gmail.vn</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

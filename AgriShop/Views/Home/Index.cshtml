@@ -1,8 +1,78 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model X.PagedList.IPagedList<SanPham>
+@using AnBinhMarket.Data.Entities
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="home-index-slider slider-arrow slider-dots">
+    <div class="banner-part banner-1">
+        <div class="container">
+            <img style="width: 100%;" src="https://theme.hstatic.net/1000141988/1000751919/14/slider_1.jpg?v=80"
+                 alt="">
+        </div>
+    </div>
+    <div class="banner-part banner-2">
+        <div class="container">
+            <img style="width: 100%;"
+                 src="https://theme.hstatic.net/1000141988/1000751919/14/slider_2.jpg?v=80" alt="">
+        </div>
+    </div>
+    <div class="banner-part banner-2">
+        <div class="container">
+            <img style="width: 100%;"
+                 src="https://theme.hstatic.net/1000141988/1000763324/14/slider_2.jpg?v=55" alt="">
+        </div>
+    </div>
+</section>
+
+<section class="section recent-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h3>Danh sách sản phẩm</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="product-card">
+                        <div class="product-media">
+                            <img src="@Url.Content("~/products/" + item.HinhAnh)"
+                                 alt="product" style="width:100%;height:150px" class="img-responsive center-block" />
+                        </div>
+                        <div class="product-content">
+                            <h6 class="product-name">
+                                <a href="@Url.Action("Detail", "Product", new { id = item.MaSP })">@item.TenSP</a>
+                            </h6>
+                            <h6 class="product-price">
+                                <span class="hdk-price">@string.Format("{0:#,##}", item.Gia) vnđ</span>
+                            </h6>
+                            <a href="/Checkout/Additem?productId=@item.MaSP&quantity=1" class="product-add" title="Thêm vào giỏ">
+                                <i class="fas fa-shopping-basket"></i><span>Thêm vào giỏ hàng</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions()
+                       {
+                           LiElementClasses = new string[] { "page-item", "page-link" }
+                       })
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
