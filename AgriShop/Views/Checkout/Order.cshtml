@@ -1,0 +1,82 @@
+﻿
+@model List<CartItem>
+@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> signinManager
+@inject UserManager<ApplicationUser> userManager
+@inject ApplicationDbContext _context
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/css/custom/checkout.css" rel="stylesheet" />
+    <link href="~/css/custom/Order.css" rel="stylesheet" />
+}
+<section class="inner-section checkout-part" style="margin-top: 50px">
+    <div class="container">
+        <div class="row">
+            <form class="col-lg-6 alert-info infor-customer formOrder" action="/Checkout/Order" method="post">
+                <h4>Thông Tin Giao Hàng</h4>
+                @await Component.InvokeAsync("_DC_GiaoHang")
+            </form>
+            <div class="col-lg-5 alert-info infor-customer order-detail">
+                <h4>Thông Tin Đơn Hàng</h4>
+                <div class="infor-order">
+                    @foreach (var item in Model)
+                    {
+                        <div class="infor-order-detail">
+                            <p class="row_infor">
+                                <b style="color: black;">@item.Soluong <i class="fas fa-times"></i></b>
+                                <span><a href="@Url.Action("Detail", "Product", new { id = item.SanPham.Id })" class="row_infor-link">@item.SanPham.TenSP</a></span>
+                            </p>
+                            <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia) VNĐ</span>
+                        </div>
+                    }
+                </div>
+                <div class="form_infor-input infor-order-detail text-black-80">
+                    <label>Tổng tiền:</label>
+                    <span>@ViewBag.sumTotal đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="row button-order">
+            <div class="col-lg-3 col-md-5 my-2">
+                <a href="/Home/Index" class="btn btn-inline">Quay lại mua hàng</a>
+            </div>
+            <div class="col-lg-7 col-sm-1"></div>
+            <div class="col-lg-2 col-sm-5 my-2">
+                <button class="btn btn-inline orderbtn1" id="btn-thanhtoan">Thanh toán</button>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var orderbtn1 = document.querySelector('.orderbtn1');
+    var btnThanhToan = document.getElementById("btn-thanhtoan");
+    var tenKH = document.querySelector('#firstname');
+    var diaChi = document.querySelector('#address');
+    var diaChiArea = document.querySelector('#DcNhanHang');
+    var yeuCauKhac = document.querySelector('#GhiChu');
+    var soDienThoai = document.querySelector('#mobile');
+    var formOrder = document.querySelector('.formOrder');
+    btnThanhToan.addEventListener('click', () => {
+        if (tenKH.value == '') {
+            alert('Vui lòng nhập tên của bạn')
+        }
+        else if (diaChi.value == '') {
+            alert('Vui lòng nhập địa chỉ')
+        }
+        else if (soDienThoai.value == '') {
+            alert('Số điện thoại nhập không đúng')
+        }
+        else {
+            formOrder.submit();
+            alert('Đặt hàng thành công');
+        }
+    })
+</script>
+
+
+

@@ -6,6 +6,6 @@ namespace AnBinhMarket.Models
     public class CartItem
     {
         public SanPham SanPham { get; set; }
-        public int  SoLuong { get; set; }
+        public int  Soluong { get; set; }
     }
 }
