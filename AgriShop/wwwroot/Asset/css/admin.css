@@ -1016,8 +1016,8 @@ button.bg-danger:hover {
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > span:hover {
-  background-color: #12487f;
-  border-color: #12487f;
+  background-color: black;
+  border-color: black;
 }
 .pagination > li > a,
 .pagination > li > span {
@@ -1030,8 +1030,8 @@ button.bg-danger:hover {
   box-shadow: unset;
 }
 .page-item.active .page-link {
-  background-color: #12487f;
-  border-color: #12487f;
+  background-color: black;
+  border-color: black;
 }
 .dropdown-menu {
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -1707,6 +1707,7 @@ html.menu-opened body {
   font-size: 16px;
   height: auto;
   padding: 0 20px;
+    
 }
 .sidebar-menu li a:hover {
   color: #12487f;
@@ -1720,7 +1721,7 @@ html.menu-opened body {
   color: #fff;
 }
 .sidebar-menu li.active a {
-  background-color: #12487f;
+  background-color: black;
   color: #fff;
 }
 .menu-title {
@@ -1828,12 +1829,13 @@ html.menu-opened body {
 }
 .sidebar-menu > ul > li > a {
   align-items: center;
-  border-radius: 10px;
+  border-radius: 0px;
   display: flex;
   justify-content: flex-start;
   padding: 10px 20px;
   position: relative;
   transition: all 0.2s ease-in-out 0s;
+  text-transform: uppercase
 }
 .sidebar-menu ul li a i {
   display: inline-block;
@@ -4648,4 +4650,9 @@ table.table-inbox tbody tr.checked {
 }
 .fa-newspaper{
   color: #000;
+}
+
+.btn-primary{
+    background: black;
+    border-radius:0px;
 }

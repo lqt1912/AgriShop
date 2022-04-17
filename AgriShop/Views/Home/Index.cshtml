@@ -11,20 +11,20 @@
 <section class="home-index-slider slider-arrow slider-dots">
     <div class="banner-part banner-1">
         <div class="container">
-            <img style="width: 100%;" src="https://theme.hstatic.net/1000141988/1000751919/14/slider_1.jpg?v=80"
+            <img style="width: 100%;" src="~/images/slider-1.jpg"
                  alt="">
         </div>
     </div>
     <div class="banner-part banner-2">
         <div class="container">
             <img style="width: 100%;"
-                 src="https://theme.hstatic.net/1000141988/1000751919/14/slider_2.jpg?v=80" alt="">
+                 src="~/images/slider-2.jpg" alt="">
         </div>
     </div>
     <div class="banner-part banner-2">
         <div class="container">
             <img style="width: 100%;"
-                 src="https://theme.hstatic.net/1000141988/1000763324/14/slider_2.jpg?v=55" alt="">
+                 src="~/images/slider-3.jpg" alt="">
         </div>
     </div>
 </section>
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-heading">
-                    <h3>Danh sách sản phẩm</h3>
+                    <h3 class="text-left">Danh sách sản phẩm</h3>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                             <h6 class="product-price">
                                 <span class="hdk-price">@string.Format("{0:#,##}", item.Gia) vnđ</span>
                             </h6>
-                            <a href="/Checkout/Additem?productId=@item.MaSP&quantity=1" class="product-add" title="Thêm vào giỏ">
+                            <a href="/Checkout/Additem?productId=@item.Id&quantity=1" class="product-add" title="Thêm vào giỏ">
                                 <i class="fas fa-shopping-basket"></i><span>Thêm vào giỏ hàng</span>
                             </a>
                         </div>

@@ -34,13 +34,19 @@ namespace AnBinhMarket.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Profile");
+                // return RedirectToAction("Login", "Profile");
+                //Identity/Account/Login
+                return RedirectToAction("Login", "Account", new
+                {
+                    Area = "Identity"
+                });
             }
         }
 
 
         public IActionResult Additem(Guid productId, int quantity)
         {
+            
             var product = _context.SanPhams.Find(productId);
             var cart = HttpContext.Session.Get<List<CartItem>>("Cartsession");
 

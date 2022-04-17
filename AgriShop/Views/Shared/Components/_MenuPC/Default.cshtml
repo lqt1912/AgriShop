@@ -8,25 +8,29 @@
                 <div class="navbar-content">
                     <ul class="navbar-list">
                         <li class="navbar-item dropdown">
-                            <a class="navbar-link" href="@Url.Action("Index","Home")">Trang chủ</a>
+                            <a class="navbar-link" href="@Url.Action("Index","Home", new {
+                                Area = ""
+                            })">Trang chủ</a>
                         </li>
                         <li class="navbar-item dropdown">
-                            <a class="navbar-link dropdown-arrow" href="@Url.Action("Index","Home")">Danh mục sản phẩm</a>
+                            <a class="navbar-link dropdown-arrow" href="@Url.Action("Index","Home", new {
+                                Area = ""
+                            })">Danh mục sản phẩm</a>
                             <ul class="dropdown-position-list">
                                 @foreach (var item in Model)
                                 {
-                                    <li><a href="@Url.Action("Detail","Category", new { id = item.Id })">@item.TenDanhMuc</a></li>
+                                    <li><a href="@Url.Action("Detail","Category", new { id = item.Id, Area="" })">@item.TenDanhMuc</a></li>
                                 }
                             </ul>
                         </li>
                         <li class="navbar-item dropdown">
-                            <a class="navbar-link" href="@Url.Action("Index","News")">Tin tức</a>
+                            <a class="navbar-link" href="@Url.Action("Index","News", new {Area =""} )">Tin tức</a>
                         </li>
                         <li class="navbar-item dropdown">
-                            <a class="navbar-link" href="@Url.Action("Index","Introduce")">Giới thiệu</a>
+                            <a class="navbar-link" href="@Url.Action("Index","Introduce", new {Area =""} )">Giới thiệu</a>
                         </li>
                         <li class="navbar-item dropdown">
-                            <a class="navbar-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
+                            <a class="navbar-link" href="@Url.Action("Index","Contact", new {Area =""} )">Liên hệ</a>
                         </li>
                         @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
                         {
@@ -39,11 +43,11 @@
                     <div class="navbar-info-group">
                         <div class="navbar-info">
                             <i class="icofont-ui-touch-phone"></i>
-                            <p><small>Hotline</small><span>1900 003 572</span></p>
+                            <p><small><strong>Điện thoại</strong></small><span>1900 003 572</span></p>
                         </div>
                         <div class="navbar-info">
                             <i class="icofont-ui-email"></i>
-                            <p><small>Email</small><span>anbinhmarket@gmail.vn</span></p>
+                            <p><small><strong>Liên hệ</strong></small><span>anbinhmarket@gmail.vn</span></p>
                         </div>
                     </div>
                 </div>
