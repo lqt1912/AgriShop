@@ -1,0 +1,99 @@
+﻿@using AnBinhMarket.Data.Entities
+@model ApplicationUser
+
+@{
+    ViewBag.Title = Model.HoTen;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/css/custom/profile.css" />
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<section class="inner-section single-banner">
+    <div class="container">
+        <h2>Thông tin tài khoản</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home", new {Area = ""})">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Thông tin tài khoản</li>
+        </ol>
+    </div>
+</section>
+<section class="inner-section profile-part">
+    <div class="container">
+        <div class="row">
+            @if (ViewBag.Information != null)
+            {
+                <br />
+                <div class="alert alert-info" role="alert">@ViewBag.Information</div>
+            }
+            <div class="col-lg-12">
+                <div class="account-card">
+                    <div class="account-title">
+                        <h4>Thông tin tài khoản</h4>
+                        <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Đổi mật khẩu</a>
+                    </div>
+                    <form action="@Url.Action("Update","Profile")" method="post" class="account-content">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="profile-image">
+                                    <a href="#"><img src="~/images/user.png" alt="user" /></a>
+                                </div>
+                            </div>
+                            <div hidden="hidden"><input type="text" name="TenTaiKhoan" value="@Model.Id" /></div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-label">Tên</label>
+                                    @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", value = Model.HoTen } })
+                                    @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input class="form-control"
+                                           type="email"
+                                           name="email"
+                                           value="@Model.Email" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-label">Số điện thoại</label>
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", value = Model.PhoneNumber } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-label">Địa chỉ</label>
+                                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", value = Model.DiaChi } })
+                                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 align-middle">
+                                <button class="btn btn-inline pt-2 pb-2 mt-4">
+                                    <span>Cập nhật</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@await Component.InvokeAsync("_OrderView", new {TenTK = Model.Id})
+</section>
+
+

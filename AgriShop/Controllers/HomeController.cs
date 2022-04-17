@@ -31,6 +31,20 @@ namespace AnBinhMarket.Controllers
             return View(products.ToPagedList(pageNumber, 10));
         }
 
+        [HttpGet]
+        public IActionResult CancelOrder(Guid MaHD)
+        {
+            var hd = _context.HoaDons.FirstOrDefault(x=>x.Id == MaHD);
+            if(hd != null)
+            {
+                hd.TrangThai = "Đã hủy";
+                _context.HoaDons.Update(hd);
+                _context.SaveChanges();
+            }
+          
+            return RedirectToAction("Index", "Profile", new { Area=""});
+        }
+
         public IActionResult Privacy()
         {
             return View();

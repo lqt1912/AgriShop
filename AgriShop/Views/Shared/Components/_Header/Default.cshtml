@@ -1,8 +1,23 @@
-﻿@using AnBinhMarket.Data.Entities
+﻿@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
 @using Microsoft.AspNetCore.Identity
 @using Newtonsoft.Json
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDbContext _context;
+
+@{
+    var currentUser = new ApplicationUser();
+    if (SignInManager.IsSignedIn(User))
+    {
+        var userId = UserManager.GetUserId(User);
+        if (userId != null)
+        {
+            currentUser = _context.Users.Find(Guid.Parse(userId));
+        }
+    }
+
+}
 
 <section class="header-part">
     <div class="container">
@@ -28,14 +43,13 @@
             @if (SignInManager.IsSignedIn(User))
             {
                 <a class="header-widget"
-               asp-area="Identity"
-               asp-page="/Account/Manage/Index"
+               href="@Url.Action("Index", "Profile", new {Area = ""})"
                title="Manage">
-                    <img src="~/images/user.png" alt="user" /><span>@User.Identity?.Name!</span>
+                    <img src="~/images/user.png" alt="user" /><span>Chào <strong>@currentUser.HoTen</strong></span>
                 </a>
 
                 <form style="margin-left: 30px;" class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link btn btn-link text-dark" style="border-radius: 0px">Thoát </button>
+                    <button type="submit" class="nav-link btn btn-link text-dark" style="border-radius: 0px; border: none">Thoát </button>
                 </form>
             }
             else
