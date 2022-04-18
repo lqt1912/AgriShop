@@ -1,0 +1,83 @@
+﻿@using AnBinhMarket.Data.Entities
+@model IEnumerable<HoaDon>
+@{
+    ViewBag.Title = "ThongKeTheoThang";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section styles{
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" href="~/Asset/plugins/datatables/datatables.min.css" />
+    <link href="~/Asset/css/material-dashboard.css" rel="stylesheet" />
+}
+<!-- Start alert -->
+<div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="page-title">Các đơn hàng trong tháng</h3>
+            </div>
+            <div class="col-auto">
+                <a href="@Url.Action("Index", "Manage")"
+                   class="btn btn-primary ml-3">
+                     Trở về trang thống kê
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+    <!-- Start alert -->
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div style="display: none" id="deletee" class="alert alert-danger text-center" role="alert"></div>
+        </div>
+        <div class="col-4"></div>
+
+    </div>
+    <!-- End alert -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0 datatable">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày đặt</th>
+
+                                    <th class="text-right">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.GioHang.TaiKhoan.HoTen)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NgayTao)</td>
+
+                                        <td class="text-right">
+                                            <a href="@Url.Action("ChiTietDonTrongThang","Manage",new {id = item.Id})"
+                                               class="btn btn-sm bg-primary-light mr-2">
+                                                <i class="far fa-eye mr-1"></i>Chi tiết
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

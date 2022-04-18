@@ -135,6 +135,12 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                var _a = _context.Users.Any(x=>x.Email ==Input.Email);
+                if (_a)
+                {
+                    ModelState.AddModelError(string.Empty, "Email đã được sử dụng. Vui lòng kiểm tra email để kích hoạt. ");
+                    return Page();
+                }
                 var user = CreateUser();
 
                 user.PhoneNumber = Input.PhoneNumber;

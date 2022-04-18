@@ -1,4 +1,5 @@
 ﻿using AnBinhMarket.Data;
+using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +33,40 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 return NotFound();
             }
             return View(hoaDon);
+        }
+        public IActionResult Edit(Guid id)
+        {
+
+            var hoaDon = _context.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham)
+                .Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).FirstOrDefault(x => x.Id == id);
+            if (hoaDon == null)
+            {
+                return NotFound();
+            }
+            return View(hoaDon);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(HoaDon hoaDon)
+        {
+            try
+            {
+                var _hoaDon = _context.HoaDons.FirstOrDefault(x=>x.Id ==hoaDon.Id);
+                if (_hoaDon != null)
+                {
+                    _hoaDon.TrangThai = hoaDon.TrangThai;
+                    _context.HoaDons.Update(_hoaDon);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(hoaDon);
+            }
+
         }
     }
 }
