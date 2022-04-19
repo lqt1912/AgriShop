@@ -21,7 +21,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult Index(string searchString)
         {
-            var sanphams = _context.SanPhams.Include(x => x.DanhMuc).Where(x=>!x.IsDeleted).ToList();
+            var sanphams = _context.SanPhams.Include(x => x.DanhMuc).Where(x => !x.IsDeleted).ToList();
             if (!string.IsNullOrEmpty(searchString))
             {
                 sanphams = sanphams.Where(p => p.TenSP.Contains(searchString)).ToList();
@@ -42,7 +42,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var sanPham = sanPhams.FirstOrDefault(x => x.Id == id);
             if (sanPham == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             ViewBag.MaDanhMuc = new SelectList(_context.DanhMucs, "Id", "TenDanhMuc", sanPham.MaDanhMuc);
             ViewBag.MaTH = new SelectList(_context.ThuongHieux, "Id", "TenThuongHieu", sanPham.MaTH);
@@ -110,7 +111,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         {
             var product = _context.SanPhams.Find(id);
             if (product == null)
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             product.MoTa = HttpUtility.HtmlDecode(product.MoTa);
 
             ViewBag.MaDanhMuc = new SelectList(_context.DanhMucs, "Id", "TenDanhMuc", product.MaDanhMuc);
@@ -178,7 +180,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var sanPham = sanPhams.FirstOrDefault(x => x.Id == id);
             if (sanPham == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(sanPham);
         }
@@ -191,7 +194,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var sanPham = _context.SanPhams.Find(id);
             try
             {
-                if (sanPham!=null){
+                if (sanPham != null)
+                {
                     sanPham.IsDeleted = true;
                     _context.SanPhams.Update(sanPham);
                     _context.SaveChanges();

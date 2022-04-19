@@ -131,7 +131,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var user = _context.Users.Find(id);
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(user);
         }
@@ -142,7 +143,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var user = _context.Users.Find(id);
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(user);
         }

@@ -102,7 +102,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             }
             if (tinTuc == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(tinTuc);
         }
@@ -113,7 +114,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var tinTuc = tinTucs.FirstOrDefault(x=>x.Id ==id);
             if (tinTuc == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             tinTuc.MoTaChiTiet = HttpUtility.HtmlDecode(tinTuc.MoTaChiTiet);
 
@@ -175,7 +177,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var tinTuc = _context.TinTucs.Find(id);
             if (tinTuc == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             ViewBag.NguoiViet = _context.Users.Find(tinTuc.TenTaiKhoan);
             return View(tinTuc);

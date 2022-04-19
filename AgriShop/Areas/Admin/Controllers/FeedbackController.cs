@@ -25,7 +25,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var phanHoi = _context.PhanHois.Find(id);
             if (phanHoi == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(phanHoi);
         }

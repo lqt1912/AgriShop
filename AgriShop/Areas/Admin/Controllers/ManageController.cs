@@ -103,7 +103,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(user);
         }
@@ -127,7 +128,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             if (tinTuc == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             tinTuc.MoTaChiTiet = HttpUtility.HtmlDecode(tinTuc.MoTaChiTiet);
 
@@ -168,7 +170,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             if (phanHoi == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(phanHoi);
         }
@@ -191,7 +194,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                .FirstOrDefault(x => x.Id == id);
             if (hoaDon == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(hoaDon);
         }
@@ -200,8 +204,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         {
             //GioHang.TaiKhoan
             DateTime today = DateTime.Today;
-            var hds = db.HoaDons.Include(x=>x.GioHang).ThenInclude(x=>x.TaiKhoan).Where(h => h.NgayTao.Month == today.Month &&
-                    h.NgayTao.Year == today.Year && h.TrangThai.Equals("Đã giao")).ToList();
+            var hds = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).Where(h => h.NgayTao.Month == today.Month &&
+                        h.NgayTao.Year == today.Year && h.TrangThai.Equals("Đã giao")).ToList();
             return View(hds);
         }
         public IActionResult ChiTietDonTrongThang(Guid id)
@@ -210,7 +214,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham).FirstOrDefault(x => x.Id == id);
             if (hoaDon == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(hoaDon);
         }
@@ -230,7 +235,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham).FirstOrDefault(x => x.Id == id);
             if (hoaDon == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(hoaDon);
         }

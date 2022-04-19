@@ -30,7 +30,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             if (hoaDon == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(hoaDon);
         }
@@ -41,7 +42,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 .Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).FirstOrDefault(x => x.Id == id);
             if (hoaDon == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(hoaDon);
         }

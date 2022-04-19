@@ -16,7 +16,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var thuongHieus = _context.ThuongHieux.Where(x=>!x.IsDeleted).OrderByDescending(th => th.Id).ToList();
+            var thuongHieus = _context.ThuongHieux.Where(x => !x.IsDeleted).OrderByDescending(th => th.Id).ToList();
             return View(thuongHieus);
         }
 
@@ -52,7 +52,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             if (thuongHieu == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(thuongHieu);
         }
@@ -86,7 +87,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var thuongHieu = _context.ThuongHieux.Find(id);
             if (thuongHieu == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(thuongHieu);
         }

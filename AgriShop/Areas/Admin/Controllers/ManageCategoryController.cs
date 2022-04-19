@@ -77,7 +77,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             if (danhMuc == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new {Area="Admin"});
             }
             return View(danhMuc);
         }
@@ -117,7 +117,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             if (danhMuc == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+
             }
             return View(danhMuc);
         }

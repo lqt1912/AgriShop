@@ -29,7 +29,7 @@ namespace AnBinhMarket.Controllers
             var tinTuc = _context.TinTucs.Include(X=>X.TaiKhoan).FirstOrDefault(x=>x.Id ==id);
             if (tinTuc == null)
             {
-                return NotFound();
+                return Redirect("/NotFound/Index");
             }
             return View(tinTuc);
         }
