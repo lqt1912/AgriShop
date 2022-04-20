@@ -1,5 +1,6 @@
 ﻿@using AnBinhMarket.Data.Entities
-@model IEnumerable<HoaDon>
+@using AnBinhMarket.Models
+@model IEnumerable<HoaDonViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -47,7 +48,7 @@
                                     <th>Tên khách hàng</th>
                                     <th>Ngày đặt</th>
                                     <th>Trạng thái</th>
-                                    <th>Phí vận chuyển</th>
+                                    <th>Tổng tiền</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
                             </thead>
@@ -56,10 +57,10 @@
                                 {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.GioHang.TaiKhoan.HoTen)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
                                     <td>@Html.DisplayFor(modelItem => item.NgayTao)</td>
                                     <td>@Html.DisplayFor(modelItem => item.TrangThai)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.PhiShip) VND</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ThanhTien) VND</td>
                                     @if (!item.TrangThai.Equals("Đã hủy") && !item.TrangThai.Equals("Đã giao"))
                                     {
                                         <td class="text-right">

@@ -7,11 +7,11 @@
 }
 @section styles{
     <!-- Datepicker CSS -->
-    <link rel="stylesheet" href="../Areas/Asset/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
 
     <!-- Datatables CSS -->
     <link rel="stylesheet"
-          href="../Areas/Asset/plugins/datatables/datatables.min.css" />
+          href="~/Asset/plugins/datatables/datatables.min.css" />
 }
 
 <div class="content container-fluid">
@@ -44,7 +44,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Họ tên</th>
-                                    <th>Email</th>
+                                    <th>Nội dung</th>
                                     <th>Ngày tạo</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
@@ -54,14 +54,14 @@
                                 {
 
                                 <tr>
-                                    <td>
+                                    <td style="width: 50px">
                                         @Html.DisplayFor(modelItem => item.Id)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Ten)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
+                                    <td >
+                                        @item.NoiDung.Substring(0, 50)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NgayTao)
