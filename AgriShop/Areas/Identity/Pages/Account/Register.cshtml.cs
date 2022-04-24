@@ -141,6 +141,12 @@ namespace AnBinhMarket.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Email đã được sử dụng. Vui lòng kiểm tra email để kích hoạt. ");
                     return Page();
                 }
+                var _b = _context.Users.Any(x => x.PhoneNumber == Input.PhoneNumber);
+                if (_b)
+                {
+                    ModelState.AddModelError(string.Empty, "Số điện thoại đã được sử dụng. ");
+                    return Page();
+                }
                 var user = CreateUser();
 
                 user.PhoneNumber = Input.PhoneNumber;

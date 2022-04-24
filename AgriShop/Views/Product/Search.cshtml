@@ -23,7 +23,74 @@
 <section class="inner-section shop-part">
     <div class="container">
         <div class="row content-reverse">
-            <div class="col-lg-3">
+           
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="top-filter col-lg-9">
+                                <div class="filter-short">
+                                    <label class="filter-label">Sắp xếp theo :</label>
+                                    <select id="filter" onchange="onSort()" class="form-select filter-select">
+                                        <option id="hdk-default" value="default" selected>Mặc định</option>
+                                        <option id="hdk-asc" value="asc">Giá từ thấp tới cao</option>
+                                        <option id="hdk-desc" value="desc">Giá từ cao tới thấp</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <button type="button" onclick="clearFilter()" class="shop-widget-btn"><i class="far fa-trash-alt"></i>Xoá bộ lọc</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col">
+                            <div class="product-card">
+                                <div class="product-media">
+                                    <img src="@Url.Content("~/products/" + item.HinhAnh)"
+                                         alt="product" width="100%" height="150px" class="img-responsive center-block" />
+                                </div>
+                                <div class="product-content">
+                                    <h6 class="product-name">
+                                        <a href="@Url.Action("Detail","Product",  new { id = item.Id })">@item.TenSP</a>
+                                    </h6>
+                                    <h6 class="product-price">
+                                        <span>@string.Format("{0:#,##}", item.Gia) vnđ</span>
+                                    </h6>
+                                    <a class="product-add" href="/Checkout/Additem?productId=@item.Id&quantity=1" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-basket"></i><span>Thêm vào giỏ hàng</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <input value="@ViewBag.order" id="viewbag" hidden="hidden" />
+                <input value="@ViewBag.keyword" id="keyword-hidden" hidden="hidden" />
+                <input value="@ViewBag.category" id="cate-hidden" hidden="hidden" />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bottom-paginate">
+                            @Html.PagedListPager(Model, page => Url.Action("Search", new
+                               {
+                                   page = page,
+                                   fromPrice = ViewBag.from,
+                                   toPrice = ViewBag.to,
+                                   order = ViewBag.order,
+                                   keyword = ViewBag.keyword,
+                                   category = ViewBag.category
+                               }), new PagedListRenderOptions()
+                               {
+                                   LiElementClasses = new string[] { "page-item", "page-link" }
+                               })
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="col-lg-3">
                 <div class="shop-widget-promo">
 
                     <a href="#"><img src="~/images/filter.jpg" alt="promo" /></a>
@@ -56,72 +123,6 @@
                             <i class="fas fa-search"></i><span>Tìm</span>
                         </button>
                     </form>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="top-filter col-lg-9">
-                                <div class="filter-short">
-                                    <label class="filter-label">Sắp xếp theo :</label>
-                                    <select id="filter" onchange="onSort()" class="form-select filter-select">
-                                        <option id="hdk-default" value="default" selected>Mặc định</option>
-                                        <option id="hdk-asc" value="asc">Giá từ thấp tới cao</option>
-                                        <option id="hdk-desc" value="desc">Giá từ cao tới thấp</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <button type="button" onclick="clearFilter()" class="shop-widget-btn"><i class="far fa-trash-alt"></i>Xoá bộ lọc</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
-                    @foreach (var item in Model)
-                    {
-                        <div class="col">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <img src="@Url.Content("~/products/" + item.HinhAnh)"
-                                         alt="product" width="100%" height="150px" class="img-responsive center-block" />
-                                </div>
-                                <div class="product-content">
-                                    <h6 class="product-name">
-                                        <a href="@Url.Action("Detail","Product",  new { id = item.MaSP })">@item.TenSP</a>
-                                    </h6>
-                                    <h6 class="product-price">
-                                        <span>@string.Format("{0:#,##}", item.Gia) vnđ</span>
-                                    </h6>
-                                    <a class="product-add" href="/Checkout/Additem?productId=@item.MaSP&quantity=1" title="Thêm vào giỏ">
-                                        <i class="fas fa-shopping-basket"></i><span>Thêm vào giỏ hàng</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <input value="@ViewBag.order" id="viewbag" hidden="hidden" />
-                <input value="@ViewBag.keyword" id="keyword-hidden" hidden="hidden" />
-                <input value="@ViewBag.category" id="cate-hidden" hidden="hidden" />
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="bottom-paginate">
-                            @Html.PagedListPager(Model, page => Url.Action("Search", new
-                               {
-                                   page = page,
-                                   fromPrice = ViewBag.from,
-                                   toPrice = ViewBag.to,
-                                   order = ViewBag.order,
-                                   keyword = ViewBag.keyword,
-                                   category = ViewBag.category
-                               }), new PagedListRenderOptions()
-                               {
-                                   LiElementClasses = new string[] { "page-item", "page-link" }
-                               })
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

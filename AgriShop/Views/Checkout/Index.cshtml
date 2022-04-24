@@ -28,7 +28,7 @@
                     </div>
                     <div class="account-content">
                         <div class="table-scroll">
-                            @if (Model.Count > 0)
+                            @if (Model!=null && Model.Count > 0)
                             {
                                 <table class="table-list">
                                     <thead>
@@ -45,9 +45,13 @@
                                         @foreach (var item in Model)
                                         {
                                             var view = @item.Soluong * @item.SanPham.Gia;
+                                            if(item.SanPham.GiaKM >0 && item.SanPham.Gia > item.SanPham.GiaKM )
+                                            {
+                                                view = item.Soluong * item.SanPham.GiaKM.Value;
+                                            }
                                             <tr>
                                                 <td class="table-serial">
-                                                    <h6>@item.SanPham.MaSP</h6>
+                                                    <h6>@Model.IndexOf(item)+1</h6>
                                                 </td>
                                                 <td class="table-image">
                                                     <img src="@Url.Content("~/products/" + item.SanPham.HinhAnh)" alt="product" />
@@ -71,7 +75,9 @@
                                                                             title="Quantity Number"
                                                                             type="text"
                                                                             name="quantity"
-                                                                            value="@item.Soluong" />
+                                                                            value="@item.Soluong"
+                                                                            max="10"
+                                                                            min="1"/>
                                                             <button class="action-plus" title="Quantity Plus">
                                                                 <i class="icofont-plus"></i>
                                                             </button>

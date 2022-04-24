@@ -6,12 +6,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 @section styles{
-    <!-- Datepicker CSS -->
-    <link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
+<!-- Datepicker CSS -->
+<link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
 
-    <!-- Datatables CSS -->
-    <link rel="stylesheet"
-          href="~/Asset/plugins/datatables/datatables.min.css" />
+<!-- Datatables CSS -->
+<link rel="stylesheet"
+      href="~/Asset/plugins/datatables/datatables.min.css" />
 }
 
 <div class="content container-fluid">
@@ -53,27 +53,32 @@
                                 @foreach (var item in Model)
                                 {
 
-                                <tr>
-                                    <td style="width: 50px">
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Ten)
-                                    </td>
-                                    <td >
-                                        @item.NoiDung.Substring(0, 50)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NgayTao)
-                                    </td>
+                                    <tr>
+                                        <td style="width: 50px">
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Ten)
+                                        </td>
+                                        <td>
+                                            @{
+                                                var _display = item.NoiDung;
+                                                if (_display.Length >= 50)
+                                                    _display = _display.Substring(0, 50);
+                                            }
+                                            @_display
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NgayTao)
+                                        </td>
 
-                                    <td class="text-right">
-                                        <a href="@Url.Action("Detail","Feedback",new {id = item.Id})"
+                                        <td class="text-right">
+                                            <a href="@Url.Action("Detail","Feedback",new {id = item.Id})"
                                            class="btn btn-sm bg-primary-light mr-2">
-                                            <i class="far fa-eye mr-1"></i>Chi tiết
-                                        </a>
-                                    </td>
-                                </tr>
+                                                <i class="far fa-eye mr-1"></i>Chi tiết
+                                            </a>
+                                        </td>
+                                    </tr>
                                 }
 
                             </tbody>

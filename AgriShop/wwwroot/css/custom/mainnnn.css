@@ -190,7 +190,8 @@ button {
 
 .section-heading {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .section-btn-50 {
@@ -3514,15 +3515,16 @@ tbody tr {
     -moz-transition: all linear 0.3s;
     -ms-transition: all linear 0.3s;
     -o-transition: all linear 0.3s;
+    background-color: #016300
 }
 
     .header-part.active {
+        background-color: #016300;
         position: sticky;
         top: 0px;
         left: 0px;
         width: 100%;
         z-index: 3;
-        background: var(--white);
         box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
         transition: all linear 0.3s;
         -webkit-transition: all linear 0.3s;
@@ -3788,7 +3790,6 @@ tbody tr {
 
 .navbar-content {
     border-top: 1px solid var(--border);
-    display: flex;
     align-items: center;
     justify-content: space-between;
 }
@@ -3796,7 +3797,7 @@ tbody tr {
 .navbar-list {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .navbar-item {
@@ -6285,4 +6286,8 @@ input.register-infor {
     .product-card:hover .product-add {
         color: white;
         background: black;
+    }
+
+    .text-light{
+        color:white
     }

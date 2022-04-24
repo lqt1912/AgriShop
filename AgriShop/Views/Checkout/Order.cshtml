@@ -3,6 +3,7 @@
 @using AnBinhMarket.Data
 @using AnBinhMarket.Data.Entities
 @using Microsoft.AspNetCore.Identity
+@using System.Globalization
 @inject SignInManager<ApplicationUser> signinManager
 @inject UserManager<ApplicationUser> userManager
 @inject ApplicationDbContext _context
@@ -36,8 +37,17 @@
                     }
                 </div>
                 <div class="form_infor-input infor-order-detail text-black-80">
+                    <label>Phí giao hàng:</label>
+                    <span>15000 đ</span>
+                </div>
+                <div class="form_infor-input infor-order-detail text-black-80">
                     <label>Tổng tiền:</label>
-                    <span>@ViewBag.sumTotal đ</span>
+                    @{
+                        decimal sumTotall =decimal.Parse(ViewBag.sumTotal);
+                        sumTotall = sumTotall + 15000;
+                        var _display = string.Format(CultureInfo.InvariantCulture, "{0:#,###}", sumTotall);
+                    }
+                    <span>@_display đ</span>
                 </div>
             </div>
         </div>
@@ -47,7 +57,7 @@
             </div>
             <div class="col-lg-7 col-sm-1"></div>
             <div class="col-lg-2 col-sm-5 my-2">
-                <button class="btn btn-inline orderbtn1" id="btn-thanhtoan">Thanh toán</button>
+                <button class="btn btn-inline orderbtn1" id="btn-thanhtoan">Đặt hàng</button>
             </div>
         </div>
     </div>
@@ -67,6 +77,11 @@
         }
         else if (diaChi.value == '') {
             alert('Vui lòng nhập địa chỉ')
+        }
+        else if(diaChiArea.value ==''){
+            alert('Vui lòng nhập địa chỉ giao hàng')
+        } else if (yeuCauKhac.value  =''){
+            alert('Vui lòng nhập ghi chú')
         }
         else if (soDienThoai.value == '') {
             alert('Số điện thoại nhập không đúng')

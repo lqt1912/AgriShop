@@ -59,6 +59,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 var _sanPham = new SanPham()
                 {
                     Gia = sanPham.Gia,
+                    GiaKM = sanPham.GiaKM, 
                     MaDanhMuc = sanPham.MaDanhMuc,
                     MaSP = sanPham.MaSP,
                     MaTH = sanPham.MaTH,
@@ -66,7 +67,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                     NgayCapNhat = DateTime.Now,
                     NgayTao = DateTime.Now,
                     TrongLuong = sanPham.TrongLuong,
-                    TenSP = sanPham.TenSP
+                    TenSP = sanPham.TenSP, 
+                    SoLuong = sanPham.SoLuong
                 };
                 sanPham.HinhAnh = "";
                 var fileArray = Request.Form.Files;
@@ -133,6 +135,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                     _sanPham.MaTH = sanPham.MaTH;
                     _sanPham.MaDanhMuc = sanPham.MaDanhMuc;
                     _sanPham.Gia = sanPham.Gia;
+                    _sanPham.GiaKM = sanPham.GiaKM;
                     _sanPham.SoLuong = sanPham.SoLuong;
                     _sanPham.MaTH = sanPham.MaTH;
                     _sanPham.NgayCapNhat = DateTime.Now;
@@ -186,7 +189,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             return View(sanPham);
         }
 
-        // POST: Admin/SanPhams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(Guid id)

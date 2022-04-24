@@ -9,9 +9,9 @@ namespace AnBinhMarket.Data.Entities
 
         public decimal PhiShip { get; set; }
 
-        public string ChuY { get; set; }
+        public string? ChuY { get; set; }
 
-        public string DiaChi { get; set; }
+        public string? DiaChi { get; set; }
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 
@@ -21,6 +21,6 @@ namespace AnBinhMarket.Data.Entities
         [ForeignKey("MaGioHang")]
         public virtual GioHang GioHang { get; set; }
 
-
+        public bool IsDeleted { get; set; } = false;
     }
 }

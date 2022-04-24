@@ -24,7 +24,7 @@ namespace AnBinhMarket.Controllers
                 return Redirect("/NotFound/Index");
             }
 
-            var products = _context.SanPhams.Include(x=>x.DanhMuc).Where(p => p.MaDanhMuc == id).OrderByDescending(p => p.MaSP);
+            var products = _context.SanPhams.Include(x=>x.DanhMuc).Where(p => p.MaDanhMuc == id).OrderByDescending(p => p.Id);
 
             if (order != null)
                 switch (order)
@@ -36,6 +36,14 @@ namespace AnBinhMarket.Controllers
                     case "asc":
                         products = products.OrderBy(p => p.Gia);
                         ViewBag.order = "asc";
+                        break;
+                    case "az":
+                        products = products.OrderBy(p => p.TenSP);
+                        ViewBag.order = "az";
+                        break;
+                    case "za":
+                        products = products.OrderByDescending(p => p.TenSP);
+                        ViewBag.order = "za";
                         break;
                     default:
                         ViewBag.order = "default";

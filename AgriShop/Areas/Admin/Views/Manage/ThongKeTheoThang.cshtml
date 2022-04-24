@@ -1,5 +1,6 @@
 ﻿@using AnBinhMarket.Data.Entities
-@model IEnumerable<HoaDon>
+@using AnBinhMarket.Models
+@model IEnumerable<HoaDonViewModel>
 @{
     ViewBag.Title = "ThongKeTheoThang";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -51,6 +52,7 @@
                                     <th>Mã</th>
                                     <th>Tên khách hàng</th>
                                     <th>Ngày đặt</th>
+                                    <th>Thành tiền</th>
 
                                     <th class="text-right">Hành động</th>
                                 </tr>
@@ -60,8 +62,10 @@
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.GioHang.TaiKhoan.HoTen)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
                                         <td>@Html.DisplayFor(modelItem => item.NgayTao)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ThanhTien)</td>
+
 
                                         <td class="text-right">
                                             <a href="@Url.Action("ChiTietDonTrongThang","Manage",new {id = item.Id})"

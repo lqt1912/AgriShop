@@ -111,7 +111,8 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         {
             var tinTucs = _context.TinTucs.Include(x => x.TaiKhoan).ToList();
 
-            var tinTuc = tinTucs.FirstOrDefault(x=>x.Id ==id);
+            var tinTuc = tinTucs.FirstOrDefault(x => x.Id == id && !x.IsDDeleted);
+
             if (tinTuc == null)
             {
                 return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
@@ -127,8 +128,9 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         {
             try
             {
-                var _tinTuc = _context.TinTucs.Find(tinTuc.Id);
-                if(_tinTuc != null)
+                var _tinTuc = _context.TinTucs.FirstOrDefault(x => x.Id == tinTuc.Id && !x.IsDDeleted);
+
+                if (_tinTuc != null)
                 {
                     _tinTuc.MoTaChiTiet = tinTuc.MoTaChiTiet;
                     _tinTuc.MoTaNgan = tinTuc.MoTaNgan;

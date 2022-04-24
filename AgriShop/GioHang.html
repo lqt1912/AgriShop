@@ -1,0 +1,63 @@
+﻿﻿
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+
+</head>
+<body>
+
+    <div style="font-style: italic; padding-bottom: 5px;">Chào {{Hoten}}, </div>
+    <div style="padding-bottom: 3px;">Cảm ơn quý khách đã mua hàng tại <span style="color:red; font-weight:bold"> An Binh Market</span></div>
+    <div style="padding-bottom:3px;">Thông tin mua hàng của quý khách tại cửa hàng như sau: </div>
+    <ul>
+        <li style="padding-bottom: 3px; ">Mã đơn hàng: {{madh}} </li>
+        <li style="padding-bottom: 3px; ">Địa chỉ giao hàng: {{diachi}} </li>
+        <li style="padding-bottom: 3px; ">SĐT giao hàng: {{sdt}} </li>
+        <li style="padding-bottom: 3px; ">Chi tiết đơn hàng: </li>
+    </ul>
+
+    <div style="padding: 13px; " cellpadding="3">
+        <table border="1" style="border: 1px solid black; text-align: left;">
+            <tr style="padding-bottom: 5px;">
+                <th style="padding-left: 5px; text-align:center">STT</th>
+                <th style="padding-left: 5px; text-align:center">Tên sp</th>
+                <th style="padding-left: 5px; text-align:center">Số lượng</th>
+                <th>Thành tiền (VNĐ)</th>
+            </tr>
+            {{thongtindonhang}}
+        </table>
+    </div>
+
+    <div style="padding-bottom: 3px;">
+        Phí vận chuyển: {{phiship}} VNĐ
+    </div>
+
+    <div style="padding-bottom: 3px;">
+        Tổng tiền: {{thanhtien}} VNĐ
+    </div>
+
+    <div style="padding-bottom: 3px;">
+        Cần thanh toán: {{thanhtoan}} VNĐ
+    </div>
+    <div>
+
+    </div>
+    <div style="font-style:italic; padding-top: 5px; ">
+        <div>
+            Trân trọng,
+
+        </div>
+        <br />
+
+        <div>
+            Quản trị cửa hàng An Binh Market
+        </div>
+        <div style="font-size: 14px;">
+            <div> Hotline: 1800 69 30</div>
+            <div> Email: anbinhmarket@gmail.vn</div>
+        </div>
+    </div>
+</body>
+</html>

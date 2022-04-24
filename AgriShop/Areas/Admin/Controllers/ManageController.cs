@@ -1,5 +1,6 @@
 ﻿using AnBinhMarket.Data;
 using AnBinhMarket.Data.Entities;
+using AnBinhMarket.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +23,17 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         public IActionResult Index()
         {
 
-            var products = db.SanPhams.ToList();
-            var categories = db.DanhMucs.ToList();
-            var receipts = db.HoaDons.ToList();
-            var trademarks = db.ThuongHieux.ToList();
-            var news = db.TinTucs.ToList();
+            var products = db.SanPhams.Where(x=>!x.IsDeleted).ToList();
+            var categories = db.DanhMucs.Where(x => !x.IsDeleted).ToList();
+            var receipts = db.HoaDons.Where(x => !x.IsDeleted).ToList();
+            var trademarks = db.ThuongHieux.Where(x => !x.IsDeleted).ToList();
+            var news = db.TinTucs.Where(x => !x.IsDDeleted).ToList();
             var feedbacks = db.PhanHois.ToList();
             DateTime today = DateTime.Today;
 
-            List<HoaDon> hd = db.HoaDons.Where(h => h.TrangThai.Equals("Đã giao")).ToList();
+            List<HoaDon> hd = db.HoaDons.Where(h => h.TrangThai.Equals("Đã giao") && !h.IsDeleted).ToList();
             List<HoaDon> hds = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).Where(h => h.NgayTao.Month == today.Month &&
-                        h.NgayTao.Year == today.Year && h.TrangThai.Equals("Đã giao")).ToList();
+                        h.NgayTao.Year == today.Year && h.TrangThai.Equals("Đã giao") && !h.IsDeleted).ToList();
 
             decimal tongTienNum = 0;
             foreach (var item in hds)
@@ -48,7 +49,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 tongTienTrongNamNum += item.GioHang.ChiTietGioHangs.Select(c => c.SoLuong * c.Gia).Sum();
             }
 
-            var accounts = db.Users.Where(t => t.Quyen == 0).ToList();
+            var accounts = db.Users.Where(t => t.Quyen == 0 && !t.IsDeleted).ToList();
 
             ViewBag.soLuongSp = products.Count;
             ViewBag.soLuongDm = categories.Count;
@@ -74,14 +75,14 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult ProductDetails(Guid id)
         {
-            var category = db.DanhMucs.FirstOrDefault(x => x.Id == id);
+            var category = db.DanhMucs.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (category == null)
             {
                 return Redirect("/NotFound/Index");
             }
 
-            var products = db.SanPhams.Include(x => x.DanhMuc).Where(p => p.MaDanhMuc == id).OrderByDescending(p => p.Id);
+            var products = db.SanPhams.Where(x=>!x.IsDeleted).Include(x => x.DanhMuc).Where(p => p.MaDanhMuc == id).OrderByDescending(p => p.Id);
 
 
             ViewBag.Category = category.TenDanhMuc;
@@ -92,14 +93,14 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         public IActionResult AccountAdmin()
         {
             // select only admin account
-            var taiKhoans = db.Users.Where(t => t.Quyen == 0).Select(t => t);
+            var taiKhoans = db.Users.Where(t => t.Quyen == 0 && !t.IsDeleted).Select(t => t);
             taiKhoans = taiKhoans.OrderBy(t => t.UserName);
             return View(taiKhoans);
         }
         public IActionResult AdminAccountDetail(Guid id)
         {
 
-            var user = db.Users.FirstOrDefault(x => x.Id == id);
+            var user = db.Users.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (user == null)
             {
@@ -116,7 +117,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult News()
         {
-            var tinTucs = db.TinTucs.Select(t => t);
+            var tinTucs = db.TinTucs.Where(x=>!x.IsDDeleted).Select(t => t);
             tinTucs = db.TinTucs.OrderByDescending(t => t.NgayTao);
             return View(tinTucs.ToList());
         }
@@ -124,7 +125,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         public IActionResult NewDetails(Guid id)
         {
 
-            var tinTuc = db.TinTucs.Include(x => x.TaiKhoan).FirstOrDefault(x => x.Id == id);
+            var tinTuc = db.TinTucs.Include(x => x.TaiKhoan).FirstOrDefault(x => x.Id == id && !x.IsDDeleted);
 
             if (tinTuc == null)
             {
@@ -138,13 +139,13 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult TradeMarks()
         {
-            var thuongHieus = db.ThuongHieux.OrderByDescending(th => th.Id).ToList();
+            var thuongHieus = db.ThuongHieux.Where(x=>!x.IsDeleted).OrderByDescending(th => th.Id).ToList();
             return View(thuongHieus);
         }
 
         public IActionResult TradeMarksDetails(Guid id)
         {
-            var trademark = db.ThuongHieux.FirstOrDefault(x => x.Id == id);
+            var trademark = db.ThuongHieux.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (trademark == null)
             {
@@ -178,9 +179,34 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult DonHang()
         {
-            var hoaDons = db.HoaDons
-                .Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).Where(h => h.TrangThai.Equals("Đã giao")).ToList();
-            return View(hoaDons);
+            var hoaDons = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs)
+                .Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).Where(h => h.TrangThai.Equals("Đã giao") && !h.IsDeleted).ToList();
+
+
+            var result = new List<HoaDonViewModel>();
+            foreach (var hoaDon in hoaDons)
+            {
+                decimal thanhTien = 0;
+
+                foreach (var ctgh in hoaDon.GioHang.ChiTietGioHangs)
+                {
+                    thanhTien += ctgh.Gia * ctgh.SoLuong;
+                }
+                result.Add(new HoaDonViewModel()
+                {
+                    ChuY = hoaDon.ChuY,
+                    DiaChi = hoaDon.DiaChi,
+                    MaHoaDon = hoaDon.MaHoaDon,
+                    NgayCapNhat = hoaDon.NgayCapNhat,
+                    NgayTao = hoaDon.NgayTao,
+                    ThanhTien = thanhTien + hoaDon.PhiShip,
+                    TrangThai = hoaDon.TrangThai,
+                    Id = hoaDon.Id,
+                    HoTen = hoaDon.GioHang.TaiKhoan.HoTen
+                });
+            }
+            
+            return View(result);
         }
 
         // GET: Admin/ManageReceipt/Details/5
@@ -191,7 +217,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
                 .Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan)
                .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham)
-               .FirstOrDefault(x => x.Id == id);
+               .FirstOrDefault(x => x.Id == id &&!x.IsDeleted);
             if (hoaDon == null)
             {
                 return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
@@ -204,14 +230,38 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         {
             //GioHang.TaiKhoan
             DateTime today = DateTime.Today;
-            var hds = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).Where(h => h.NgayTao.Month == today.Month &&
-                        h.NgayTao.Year == today.Year && h.TrangThai.Equals("Đã giao")).ToList();
-            return View(hds);
+            var hds = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).Where(h => h.NgayTao.Month == today.Month &&
+                        h.NgayTao.Year == today.Year && h.TrangThai.Equals("Đã giao") && !h.IsDeleted).ToList();
+
+            var result = new List<HoaDonViewModel>();
+            foreach (var hoaDon in hds)
+            {
+                decimal thanhTien = 0;
+
+                foreach (var ctgh in hoaDon.GioHang.ChiTietGioHangs)
+                {
+                    thanhTien += ctgh.Gia * ctgh.SoLuong;
+                }
+                result.Add(new HoaDonViewModel()
+                {
+                    ChuY = hoaDon.ChuY,
+                    DiaChi = hoaDon.DiaChi,
+                    MaHoaDon = hoaDon.MaHoaDon,
+                    NgayCapNhat = hoaDon.NgayCapNhat,
+                    NgayTao = hoaDon.NgayTao,
+                    ThanhTien = thanhTien + hoaDon.PhiShip,
+                    TrangThai = hoaDon.TrangThai,
+                    Id = hoaDon.Id,
+                    HoTen = hoaDon.GioHang.TaiKhoan.HoTen
+                });
+            }
+
+            return View(result);
         }
         public IActionResult ChiTietDonTrongThang(Guid id)
         {
             var hoaDon = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan)
-               .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham).FirstOrDefault(x => x.Id == id);
+               .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham).FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             if (hoaDon == null)
             {
                 return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
@@ -226,13 +276,13 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             DateTime today = DateTime.Today;
             var receipts = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).ToList();
             var hd_trong_nam = receipts.Where(h => h.NgayTao.Year == today.Year
-                   && h.TrangThai.Equals("Đã giao")).ToList();
+                   && h.TrangThai.Equals("Đã giao") && !h.IsDeleted).ToList();
             return View(hd_trong_nam);
         }
         public IActionResult DonHangTrongNam(Guid id)
         {
             var hoaDon = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan)
-               .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham).FirstOrDefault(x => x.Id == id);
+               .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham).FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             if (hoaDon == null)
             {
                 return RedirectToAction("Index", "NotFound", new { Area = "Admin" });

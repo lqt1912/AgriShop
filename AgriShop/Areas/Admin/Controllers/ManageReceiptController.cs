@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AnBinhMarket.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ManageReceiptController : Controller
+    public class ManageReceiptController : CustomController
     {
         private readonly ApplicationDbContext _context;
 
@@ -18,7 +18,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var hoaDons = _context.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).Include(x=>x.GioHang).ThenInclude(x=>x.TaiKhoan).Select(h => h);
+            var hoaDons = _context.HoaDons.Where(x=>!x.IsDeleted).Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).Include(x=>x.GioHang).ThenInclude(x=>x.TaiKhoan).Select(h => h);
 
             var result = new List<HoaDonViewModel>();
             foreach (var hoaDon in hoaDons)
@@ -93,6 +93,32 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 return View(hoaDon);
             }
 
+        }
+
+        public IActionResult Delete(Guid id)
+        {
+            var hoaDon = _context.HoaDons.Include(x=>x.GioHang).ThenInclude(x=>x.TaiKhoan).FirstOrDefault(x=>x.Id == id);
+
+            if (hoaDon == null)
+            {
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+            }
+            return View(hoaDon);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(Guid id)
+        {
+            var hoaDon = _context.HoaDons.FirstOrDefault(x=>x.Id ==id);
+            if (hoaDon != null)
+            {
+                hoaDon.IsDeleted = true;
+                _context.HoaDons.Update(hoaDon);
+                _context.SaveChanges();
+            }
+            setAlert("Xoá đơn hàng thành công!", "success");
+            return RedirectToAction("Index");
         }
     }
 }

@@ -8,9 +8,9 @@
 
         public decimal PhiShip { get; set; }
 
-        public string ChuY { get; set; }
+        public string? ChuY { get; set; }
 
-        public string DiaChi { get; set; }
+        public string? DiaChi { get; set; }
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 

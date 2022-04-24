@@ -4,6 +4,7 @@ using AnBinhMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnBinhMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220422124728_nullable-chuy")]
+    partial class nullablechuy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,9 +239,6 @@ namespace AnBinhMarket.Migrations
                     b.Property<string>("DiaChi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("MaGioHang")
                         .HasColumnType("uniqueidentifier");
 
@@ -331,10 +330,6 @@ namespace AnBinhMarket.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Gia")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("GiaKM")
-                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("HinhAnh")

@@ -35,6 +35,7 @@ const onSort = () => {
     const { value } = document.getElementById("filter");
     document.getElementById("viewbag").value = value;
     let url;
+
     let { search, pathname } = window.location;
     search = search.replace("?order=asc", "");
     search = search.replace("?order=desc", "");
@@ -42,7 +43,10 @@ const onSort = () => {
     search = search.replace("&order=desc", "");
     search = search.replace("&order=default", "");
     search = search.replace("?order=default", "");
-
+    search = search.replace("&order=az", "");
+    search = search.replace("?order=az", "");
+    search = search.replace("&order=za", "");
+    search = search.replace("?order=za", "");
     if (!search) {
         url = `${pathname}?order=${value}`;
     } else if (search.indexOf("?") === -1) {
@@ -100,13 +104,25 @@ const onloadSelected = () => {
     if (search.indexOf("order=asc") !== -1) {
         document.getElementById("hdk-asc").selected = true;
         document.getElementById("viewbag").value = "asc";
-    } else if (search.indexOf("order=desc") !== -1) {
-        document.getElementById("hdk-desc").selected = true;
-        document.getElementById("viewbag").value = "desc";
-    } else {
-        document.getElementById("hdk-default").selected = true;
-        document.getElementById("viewbag").value = "default";
     }
+    else
+        if (search.indexOf("order=desc") !== -1) {
+            document.getElementById("hdk-desc").selected = true;
+            document.getElementById("viewbag").value = "desc";
+        }
+        else
+            if (search.indexOf("order=az") !== -1) {
+                document.getElementById("hdk-az").selected = true;
+                document.getElementById("viewbag").value = "az";
+            } else
+                if (search.indexOf("order=za") !== -1) {
+                document.getElementById("hdk-za").selected = true;
+                document.getElementById("viewbag").value = "za";
+            }
+            else {
+                document.getElementById("hdk-default").selected = true;
+                document.getElementById("viewbag").value = "default";
+            }
 
     const idsExists = document.getElementById("cate-hidden").value;
     const ids = idsExists.split(",");

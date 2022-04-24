@@ -6,12 +6,12 @@
 }
 
 @section styles{
-    <!-- Datepicker CSS -->
-    <link rel="stylesheet" href="/Asset/css/bootstrap-datetimepicker.min.css" />
+<!-- Datepicker CSS -->
+<link rel="stylesheet" href="/Asset/css/bootstrap-datetimepicker.min.css" />
 
-    <!-- Datatables CSS -->
-    <link rel="stylesheet"
-          href="/Asset/plugins/datatables/datatables.min.css" />
+<!-- Datatables CSS -->
+<link rel="stylesheet"
+      href="/Asset/plugins/datatables/datatables.min.css" />
 }
 
 
@@ -69,19 +69,23 @@
         </div>
     </div>
     <!-- /Search Filter -->
-
+    <button onclick="exportData()">
+        <span class="glyphicon glyphicon-download"></span>
+        Download list
+    </button>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-center mb-0 datatable">
+                        <table class="table table-hover table-center mb-0 datatable" id="tblStocks">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Danh mục</th>
                                     <th>Giá</th>
+                                    <th>Giá KM</th>
                                     <th>Số lượng</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
@@ -91,29 +95,33 @@
                                 {
 
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.MaSP)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
                                         <td>
 
-                                            @{ var ImagePath = "~/product/" + item.HinhAnh;}
+                                            @{
+                                                var ImagePath = "~/product/" + item.HinhAnh;
+                                            }
                                             <img class="rounded service-img mr-1"
-                                                 src="@Url.Content(@ImagePath)"
-                                                 alt="" />
+                                             src="@Url.Content(@ImagePath)"
+                                             alt="" />
                                             @Html.DisplayFor(modelItem => item.TenSP)
                                         </td>
                                         <td>@Html.DisplayFor(modelItem => item.DanhMuc.TenDanhMuc)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Gia) vnđ</td>
+                                        <td>@Html.DisplayFor(modelItem => item.GiaKM) vnđ</td>
+
                                         <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
                                         <td class="text-right">
                                             <a href="@Url.Action("Details","ManageProduct",new {id = item.Id})"
-                                               class="btn btn-sm bg-primary-light mr-2">
+                                           class="btn btn-sm bg-primary-light mr-2">
                                                 <i class="far fa-eye mr-1"></i>Chi tiết
                                             </a>
                                             <a href="@Url.Action("Edit","ManageProduct",new {id = item.Id})"
-                                               class="btn btn-sm bg-primary-light mr-2">
+                                           class="btn btn-sm bg-primary-light mr-2">
                                                 <i class="far fa-edit mr-1"></i>Sửa
                                             </a>
                                             <a href="@Url.Action("Delete","ManageProduct",new {id = item.Id})"
-                                               class="btn btn-sm   bg-danger-light">
+                                           class="btn btn-sm   bg-danger-light">
                                                 <i class="far fa-trash-alt mr-1"></i> Xoá
                                             </a>
                                         </td>
@@ -128,4 +136,74 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function exportData(){
+        /* Get the HTML data using Element by Id */
+        var table = document.getElementById("tblStocks");
+        console.log(table.rows)
+        /* Declaring array variable */
+        var rows =[];
+
+          //iterate through rows of table
+        for(var i=0,row; row = table.rows[i];i++){
+            //rows would be accessed using the "row" variable assigned in the for loop
+            //Get each cell value/column from the row
+            column1 = row.cells[0].innerText;
+            column2 = row.cells[1].innerText;
+            column3 = row.cells[2].innerText;
+            column4 = row.cells[3].innerText;
+            column5 = row.cells[4].innerText;
+
+        /* add a new records in the array */
+            rows.push(
+                [
+                    column1,
+                    column2,
+                    column3,
+                    column4,
+                    column5
+                ]
+            );
+
+            }
+             console.log(rows)
+
+            csvContent = "";
+             /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+            for(let i = 0; i < rows.length; i++){
+                row = rows[i].join(",");
+                csvContent += row + "\r\n";
+                console.log(rows)
+            }
+            var _ = "data:text/csv;charset=utf-8,";
+            downloadBlob(csvContent, "testvile.csv", _)
+            /* create a hidden <a> DOM node and set its download attribute */
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Stock_Price_Report.csv");
+            document.body.appendChild(link);
+             /* download the data file named "Stock_Price_Report.csv" */
+            link.click();
+    }
+
+</script> 
+
+<script>
+    function downloadBlob(content, filename, contentType) {
+      // Create a blob
+      var data = new TextEncoder('utf-16be').encode(content);
+
+      var blob = new Blob(['\uFEFF',data], { type: contentType });
+      var url = URL.createObjectURL(blob);
+
+      // Create a link to download it
+      var pom = document.createElement('a');
+      pom.href = url;
+      pom.setAttribute('download', filename);
+      pom.click();
+    }
+</script>
 

@@ -23,8 +23,14 @@ namespace AnBinhMarket.Data.Entities
 
         [Required(ErrorMessage = "Giá sản phẩm không được để trống!")]
         [RegularExpression("^[0-9]*\\.?[0-9]*$", ErrorMessage = "Giá sản phẩm phải là một số.")]
-        [DisplayFormat(DataFormatString = "{0:#,###}")]
+        //[DisplayFormat(DataFormatString = "{0:#,###}")]
         public decimal Gia { get; set; }
+
+        [Required(ErrorMessage = "Giá sản phẩm không được để trống!")]
+        [RegularExpression("^[0-9]*\\.?[0-9]*$", ErrorMessage = "Giá sản phẩm phải là một số.")]
+        //[DisplayFormat(DataFormatString = "{0:#,###}")]
+        public decimal? GiaKM { get; set; } = 0;
+
 
         [Required(ErrorMessage = "Hình ảnh không được để trống")]
         [StringLength(100)]

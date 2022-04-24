@@ -25,7 +25,7 @@ namespace AnBinhMarket.Controllers
 
         public IActionResult Index(int? page)
         {
-            var products = _context.SanPhams.OrderByDescending(p => p.MaSP);
+            var products = _context.SanPhams.Where(x => !x.IsDeleted && 0 < x.GiaKM && x.GiaKM < x.Gia).OrderByDescending(p => p.Id);
             int pageNumber = (page ?? 1);
 
             return View(products.ToPagedList(pageNumber, 10));
@@ -34,15 +34,15 @@ namespace AnBinhMarket.Controllers
         [HttpGet]
         public IActionResult CancelOrder(Guid MaHD)
         {
-            var hd = _context.HoaDons.FirstOrDefault(x=>x.Id == MaHD);
-            if(hd != null)
+            var hd = _context.HoaDons.FirstOrDefault(x => x.Id == MaHD);
+            if (hd != null)
             {
                 hd.TrangThai = "Đã hủy";
                 _context.HoaDons.Update(hd);
                 _context.SaveChanges();
             }
-          
-            return RedirectToAction("Index", "Profile", new { Area=""});
+
+            return RedirectToAction("Index", "Profile", new { Area = "" });
         }
 
         public IActionResult Privacy()

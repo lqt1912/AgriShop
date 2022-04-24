@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5784ab4b-a383-4e9c-94ea-c7c49123c63e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageNewsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageNewsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageProductController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageReceiptController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageReceiptController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Feedback/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Feedback/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Manage/DonHang.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Manage/DonHang.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Manage/ThongKeTheoThang.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Manage/ThongKeTheoThang.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Delete.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Delete.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Edit.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageProduct/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Logout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Logout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/CategoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CategoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/CheckoutController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CheckoutController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/HomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/ProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/ProductController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Entities/HoaDon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Entities/HoaDon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Entities/SanPham.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Entities/SanPham.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/HoaDonViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/HoaDonViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Category/Detail.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Category/Detail.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Checkout/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Checkout/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Checkout/Order.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Checkout/Order.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Contact/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Contact/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Home/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Introduce/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Introduce/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Product/Detail.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Product/Detail.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Product/Search.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Product/Search.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/Components/_Header/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/Components/_Header/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/Components/_MenuMobile/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/Components/_MenuMobile/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/Components/_MenuPC/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/Components/_MenuPC/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/Scripts/filterrr.js" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/Scripts/filterrr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/css/custom/Order.css" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/css/custom/Order.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/css/custom/mainnnn.css" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/css/custom/mainnnn.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="28Eh7URbtLTpiRJOGHuodyV6nRa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\thang\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1650787486771</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650787486771</updated>
+      <workItem from="1650787490884" duration="6000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
