@@ -24,7 +24,7 @@ namespace AnBinhMarket.Controllers
                 return Redirect("/NotFound/Index");
             }
 
-            var products = _context.SanPhams.Include(x=>x.DanhMuc).Where(p => p.MaDanhMuc == id).OrderByDescending(p => p.Id);
+            var products = _context.SanPhams.Include(x=>x.DanhMuc).Where(p => p.MaDanhMuc == id && !p.IsDeleted && p.SoLuong >0).OrderByDescending(p => p.Id);
 
             if (order != null)
                 switch (order)

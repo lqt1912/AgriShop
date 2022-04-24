@@ -181,7 +181,7 @@ namespace AnBinhMarket.Controllers
                             ct.MaSP = item.SanPham.Id;
                             ct.SoLuong = item.Soluong;
                             ct.Gia = item.SanPham.Gia;
-                            if(item.SanPham.GiaKM >0 && item.SanPham.GiaKM < item.SanPham.Gia)
+                            if (item.SanPham.GiaKM > 0 && item.SanPham.GiaKM < item.SanPham.Gia)
                             {
                                 ct.Gia = item.SanPham.GiaKM.Value;
                             }
@@ -226,15 +226,15 @@ namespace AnBinhMarket.Controllers
                             strCtdh = strCtdh + "<td style='text-align:center'>" + ++index + "</td><td>" +
                                     item.SanPham.TenSP + "</td><td  style='text-align:center'>"
                                       + item.Soluong + "</td><td  style='text-align:center'>"
-                                      + (item.Soluong * item.SanPham.Gia).ToString("N0")+ "</td><tr>";
+                                      + (item.Soluong * item.SanPham.Gia).ToString("N0") + "</td><tr>";
                             tongTien = tongTien + item.Soluong * item.SanPham.Gia;
                         }
                         content = content.Replace("{{thongtindonhang}}", HtmlEncoder.Default.Encode(strCtdh));
                         content = content.Replace("{{madh}}", hd.Id.ToString());
                         content = content.Replace("{{diachi}}", hd.DiaChi);
-                        content = content.Replace("{{thanhtien}}",(tongTien + hd.PhiShip).ToString("N0"));
+                        content = content.Replace("{{thanhtien}}", (tongTien + hd.PhiShip).ToString("N0"));
                         content = content.Replace("{{thanhtoan}}", (tongTien + hd.PhiShip).ToString("N0"));
-                        content = content.Replace("{{phiship}}",  hd.PhiShip.ToString("N0"));
+                        content = content.Replace("{{phiship}}", hd.PhiShip.ToString("N0"));
 
 
                         var user = _context.Users.FirstOrDefault(x => x.Id == Guid.Parse(_userManager.GetUserId(User)));
@@ -251,7 +251,7 @@ namespace AnBinhMarket.Controllers
                             };
                             await emailService.SendEmailAsync(request);
                         }
-                      
+
                         trs.Commit();
                     }
                     catch (Exception ex)

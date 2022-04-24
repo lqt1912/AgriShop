@@ -16,10 +16,13 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? textSearch)
         {
             var hoaDons = _context.HoaDons.Where(x=>!x.IsDeleted).Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).Include(x=>x.GioHang).ThenInclude(x=>x.TaiKhoan).Select(h => h);
-
+            if (textSearch != null)
+            {
+                hoaDons = hoaDons.Where(x=>x.Id.ToString().Contains(textSearch));
+            }
             var result = new List<HoaDonViewModel>();
             foreach (var hoaDon in hoaDons)
             {

@@ -25,7 +25,7 @@ namespace AnBinhMarket.Controllers
 
         public IActionResult Index(int? page)
         {
-            var products = _context.SanPhams.Where(x => !x.IsDeleted && 0 < x.GiaKM && x.GiaKM < x.Gia).OrderByDescending(p => p.Id);
+            var products = _context.SanPhams.Where(x => !x.IsDeleted && 0 < x.GiaKM && x.GiaKM < x.Gia && x.SoLuong >0).OrderByDescending(p => p.Id);
             int pageNumber = (page ?? 1);
 
             return View(products.ToPagedList(pageNumber, 10));

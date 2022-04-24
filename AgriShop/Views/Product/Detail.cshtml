@@ -8,10 +8,10 @@
 
 @section styles{
 
-    <link href="~/css/custom/product-detaill.css" rel="stylesheet" />
+<link href="~/css/custom/product-detaill.css" rel="stylesheet" />
 }
 
-@await Component.InvokeAsync("_BreadcrumbLevelTwo", new { id = Guid.Parse(ViewContext.RouteData.Values["id"].ToString()) }) 
+@await Component.InvokeAsync("_BreadcrumbLevelTwo", new { id = Guid.Parse(ViewContext.RouteData.Values["id"].ToString()) })
 
 <section class="inner-section">
     <div class="container">
@@ -27,9 +27,22 @@
                     <h3 class="details-name">
                         <a>@Model.TenSP</a>
                     </h3>
-                    <h3 class="details-price">
-                        <span>@string.Format("{0:#,##}", Model.Gia) vnđ</span>
-                    </h3>
+                    @if (Model.GiaKM > 0 && Model.Gia > Model.GiaKM)
+                    {
+                        <h3 class="details-price">
+                            <span><s>@string.Format("{0:#,##}", Model.Gia) vnđ</s></span>
+                        </h3>
+                        <h3 class="details-price">
+                            <span style="color: red">@string.Format("{0:#,##}", Model.GiaKM) vnđ</span>
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3 class="details-price">
+                            <span>@string.Format("{0:#,##}", Model.Gia) vnđ</span>
+                        </h3>
+                    }
+
                     <p class="details-desc">
                         Trọng lượng: @Model.TrongLuong
                     </p>
@@ -48,7 +61,7 @@
                         }
                     </p>
                     <div class="details-add-group">
-                        <a class="product-add" title="Add to Cart" href="/Checkout/Additem?productId=@Model.Id&quantity=1" >
+                        <a class="product-add" title="Add to Cart" href="/Checkout/Additem?productId=@Model.Id&quantity=1">
                             <i class="fas fa-shopping-basket"></i><span>Thêm vào giỏ hàng</span>
                         </a>
                     </div>

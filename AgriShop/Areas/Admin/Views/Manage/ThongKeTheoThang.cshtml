@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "ThongKeTheoThang";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var today = DateTime.Now;
 }
 
 @section styles{
@@ -19,7 +20,7 @@
     <div class="page-header">
         <div class="row">
             <div class="col">
-                <h3 class="page-title">Các đơn hàng trong tháng</h3>
+                <h3 class="page-title">Các đơn hàng trong tháng @today.Month/@today.Year </h3>
             </div>
             <div class="col-auto">
                 <a href="@Url.Action("Index", "Manage")"

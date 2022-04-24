@@ -1,7 +1,8 @@
 ﻿@using AnBinhMarket.Data.Entities
+@using AnBinhMarket.Models
 
 
-@model IEnumerable<HoaDon>
+@model IEnumerable<HoaDonViewModel>
 
 @{
     ViewBag.Title = "ThongKeTrongNam";
@@ -9,11 +10,11 @@
 }
 
 @section styles{
-    <!-- Datepicker CSS -->
-    <link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
-    <!-- Datatables CSS -->
-    <link rel="stylesheet" href="~/Asset/plugins/datatables/datatables.min.css" />
-    <link href="~/Asset/css/material-dashboard.css" rel="stylesheet" />
+<!-- Datepicker CSS -->
+<link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
+<!-- Datatables CSS -->
+<link rel="stylesheet" href="~/Asset/plugins/datatables/datatables.min.css" />
+<link href="~/Asset/css/material-dashboard.css" rel="stylesheet" />
 }
 <!-- Start alert -->
 <div class="content container-fluid">
@@ -21,7 +22,7 @@
     <div class="page-header">
         <div class="row">
             <div class="col">
-                <h3 class="page-title">Các đơn hàng trong năm</h3>
+                <h3 class="page-title">Lọc đơn hàng theo thời gian</h3>
             </div>
             <div class="col-auto">
                 <a href="@Url.Action("Index", "Manage")"
@@ -30,6 +31,25 @@
                 </a>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <label>Từ ngày</label>
+                <input id="FromDate" class="form-control" type="date" />
+
+            </div>
+            <div class="col-md-4 col-12">
+                <label>Đến ngày</label>
+
+                <input id="ToDate" class="form-control" type="date" />
+
+            </div>
+            <div class="col-md-4 col-12">
+                <br />
+
+                <button class="btn btn-outline-primary" id="btn-filter" onclick="filterReceipt()">Áp dụng</button>
+            </div>
+        </div>
+
     </div>
     <!-- /Page Header -->
     <!-- Start alert -->
@@ -54,7 +74,7 @@
                                     <th>Mã</th>
                                     <th>Tên khách hàng</th>
                                     <th>Ngày đặt</th>
-                                   
+                                    <th>Thành tiền</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
                             </thead>
@@ -63,12 +83,12 @@
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.GioHang.TaiKhoan.HoTen)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
                                         <td>@Html.DisplayFor(modelItem => item.NgayTao)</td>
-                                        
+                                        <td>@Html.DisplayFor(modelItem =>item.ThanhTien) VNĐ</td>
                                         <td class="text-right">
                                             <a href="@Url.Action("DonHangTrongNam","Manage",new {id = item.Id})"
-                                               class="btn btn-sm bg-primary-light mr-2">
+                                           class="btn btn-sm bg-primary-light mr-2">
                                                 <i class="far fa-eye mr-1"></i>Chi tiết
                                             </a>
                                         </td>
@@ -84,3 +104,15 @@
 </div>
 
 
+<script>
+
+    function filterReceipt(){
+      let url;
+    const {pathname } = window.location;
+    var fromDate = document.getElementById('FromDate').value;
+    var toDate = document.getElementById('ToDate').value
+            url = `${pathname}?fromDate=${fromDate}&toDate=${toDate}`;
+            window.location = url;
+    }
+
+</script>

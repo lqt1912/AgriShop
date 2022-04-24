@@ -34,6 +34,19 @@
         <div class="col-4"></div>
 
     </div>
+    <div class="row pb-2">
+            <div class="col-md-4 col-12">
+                <label>Nhập mã đơn hàng</label>
+                <input id="txtMaDh" class="form-control" type="text" />
+
+            </div>
+           
+            <div class="col-md-4 col-12">
+                <br />
+
+                <button class="btn btn-outline-primary" id="btn-filter" onclick="filterReceipt()">Áp dụng</button>
+            </div>
+        </div>
     <!-- End alert -->
 
     <div class="row">
@@ -102,3 +115,19 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    function filterReceipt(){
+      let url;
+    const {pathname } = window.location;
+    var txtMaDh = document.getElementById('txtMaDh').value
+
+
+            url = `${pathname}?textSearch=${txtMaDh}`;
+
+
+            window.location = url;
+    }
+
+</script>

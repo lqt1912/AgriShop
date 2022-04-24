@@ -1,5 +1,4 @@
-﻿
-@model List<CartItem>
+﻿@model List<CartItem>
 @using AnBinhMarket.Data
 @using AnBinhMarket.Data.Entities
 @using Microsoft.AspNetCore.Identity
@@ -12,8 +11,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section styles{
-    <link href="~/css/custom/checkout.css" rel="stylesheet" />
-    <link href="~/css/custom/Order.css" rel="stylesheet" />
+<link href="~/css/custom/checkout.css" rel="stylesheet" />
+<link href="~/css/custom/Order.css" rel="stylesheet" />
 }
 <section class="inner-section checkout-part" style="margin-top: 50px">
     <div class="container">
@@ -32,7 +31,14 @@
                                 <b style="color: black;">@item.Soluong <i class="fas fa-times"></i></b>
                                 <span><a href="@Url.Action("Detail", "Product", new { id = item.SanPham.Id })" class="row_infor-link">@item.SanPham.TenSP</a></span>
                             </p>
-                            <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia) VNĐ</span>
+                            @if (item.SanPham.Gia > item.SanPham.GiaKM && item.SanPham.GiaKM > 0)
+                            {
+                                <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM) VNĐ</span>
+                            }
+                            else
+                            {
+                                <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia) VNĐ</span>
+                            }
                         </div>
                     }
                 </div>
@@ -43,7 +49,7 @@
                 <div class="form_infor-input infor-order-detail text-black-80">
                     <label>Tổng tiền:</label>
                     @{
-                        decimal sumTotall =decimal.Parse(ViewBag.sumTotal);
+                        decimal sumTotall = decimal.Parse(ViewBag.sumTotal);
                         sumTotall = sumTotall + 15000;
                         var _display = string.Format(CultureInfo.InvariantCulture, "{0:#,###}", sumTotall);
                     }
@@ -88,7 +94,7 @@
         }
         else {
             formOrder.submit();
-            alert('Đặt hàng thành công');
+            alert('Đặt hàng thành công, vui lòng kiểm tra email. ');
         }
     })
 </script>

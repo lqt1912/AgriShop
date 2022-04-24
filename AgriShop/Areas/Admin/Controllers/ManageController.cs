@@ -25,7 +25,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
             var products = db.SanPhams.Where(x=>!x.IsDeleted).ToList();
             var categories = db.DanhMucs.Where(x => !x.IsDeleted).ToList();
-            var receipts = db.HoaDons.Where(x => !x.IsDeleted).ToList();
+            var receipts = db.HoaDons.Include(x=>x.GioHang).ThenInclude(x=>x.ChiTietGioHangs).Where(x => !x.IsDeleted).ToList();
             var trademarks = db.ThuongHieux.Where(x => !x.IsDeleted).ToList();
             var news = db.TinTucs.Where(x => !x.IsDDeleted).ToList();
             var feedbacks = db.PhanHois.ToList();
@@ -271,13 +271,41 @@ namespace AnBinhMarket.Areas.Admin.Controllers
         }
 
 
-        public IActionResult ThongKeTrongNam()
+        public IActionResult ThongKeTrongNam(DateTime? fromDate, DateTime? toDate)
         {
             DateTime today = DateTime.Today;
-            var receipts = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan).ToList();
+            var receipts = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan)
+               .Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).ThenInclude(x => x.SanPham).Where(x => !x.IsDeleted);
             var hd_trong_nam = receipts.Where(h => h.NgayTao.Year == today.Year
                    && h.TrangThai.Equals("Đã giao") && !h.IsDeleted).ToList();
-            return View(hd_trong_nam);
+            if(fromDate.HasValue && toDate.HasValue)
+            {
+                hd_trong_nam = receipts.Where(x=>x.NgayTao >= fromDate && x.NgayTao <= toDate).ToList();    
+            }
+            var result = new List<HoaDonViewModel>();
+            foreach (var hoaDon in hd_trong_nam)
+            {
+                decimal thanhTien = 0;
+
+                foreach (var ctgh in hoaDon.GioHang.ChiTietGioHangs)
+                {
+                    thanhTien += ctgh.Gia * ctgh.SoLuong;
+                }
+                result.Add(new HoaDonViewModel()
+                {
+                    ChuY = hoaDon.ChuY,
+                    DiaChi = hoaDon.DiaChi,
+                    MaHoaDon = hoaDon.MaHoaDon,
+                    NgayCapNhat = hoaDon.NgayCapNhat,
+                    NgayTao = hoaDon.NgayTao,
+                    ThanhTien = thanhTien + hoaDon.PhiShip,
+                    TrangThai = hoaDon.TrangThai,
+                    Id = hoaDon.Id,
+                    HoTen = hoaDon.GioHang.TaiKhoan.HoTen
+                });
+            }
+
+            return View(result);
         }
         public IActionResult DonHangTrongNam(Guid id)
         {

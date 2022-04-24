@@ -33,7 +33,7 @@ namespace AnBinhMarket.Controllers
             {
                 keyword = "";
             }
-            var products = _context.SanPhams.Where(p => p.TenSP.Contains(keyword)).OrderByDescending(p => p.Id);
+            var products = _context.SanPhams.Where(p => p.TenSP.Contains(keyword) && !p.IsDeleted && p.SoLuong >0) .OrderByDescending(p => p.Id);
 
             if (order != null)
                 switch (order)

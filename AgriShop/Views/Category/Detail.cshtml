@@ -3,15 +3,15 @@
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 @{
-    ViewBag.Title ="Danh muc";
+    ViewBag.Title = "Danh muc";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@await Component.InvokeAsync("_BreadcrumbLevelOne", new { id = Guid.Parse(ViewContext.RouteData.Values["id"].ToString()) }); 
+@await Component.InvokeAsync("_BreadcrumbLevelOne", new { id = Guid.Parse(ViewContext.RouteData.Values["id"].ToString()) });
 <section class="inner-section shop-part">
     <div class="container">
         <div class="row content-reverse">
-          
+
             <div class="col-lg-9">
                 <div class="row">
                     <div class="col-lg-12">
@@ -43,15 +43,25 @@
                             <div class="product-card">
                                 <div class="product-media">
                                     <img src="@Url.Content("~/products/" + item.HinhAnh)"
-                                         alt="product" width="100%" height="150px" class="img-responsive center-block" />
+                                     alt="product" width="100%" height="150px" class="img-responsive center-block" />
                                 </div>
                                 <div class="product-content">
                                     <h6 class="product-name">
                                         <a href="@Url.Action("Detail","Product",  new { id = item.Id })">@item.TenSP</a>
                                     </h6>
-                                    <h6 class="product-price">
-                                        <span>@string.Format("{0:#,##}", item.Gia) vnđ</span>
-                                    </h6>
+                                    @if (item.GiaKM > 0 && item.GiaKM < item.Gia)
+                                    {
+                                        <h6 class="product-price row d-flex justify-content-between ">
+                                            <span class="hdk-price"> <s>@string.Format("{0:#,##}", item.Gia) vnđ </s></span>
+                                            <span class="hdk-price-1" style="color: red; font-weight: bold">@string.Format("{0:#,##}", item.GiaKM) vnđ</span>
+                                        </h6>
+                                    }
+                                    else
+                                    {
+                                        <h6 class="product-price ">
+                                            <span class="hdk-price">@string.Format("{0:#,##}", item.Gia) vnđ</span>
+                                        </h6>
+                                    }
                                     <a class="product-add" href="/Checkout/Additem?productId=@item.Id&quantity=1" title="Thêm vào giỏ">
                                         <i class="fas fa-shopping-basket"></i><span>Thêm vào giỏ hàng</span>
                                     </a>
@@ -65,20 +75,20 @@
                     <div class="col-lg-12">
                         <div class="bottom-paginate">
                             @Html.PagedListPager(Model, page => Url.Action("Detail", new
-                               {
-                                   page = page,
-                                   fromPrice = ViewBag.from,
-                                   toPrice = ViewBag.to,
-                                   order = ViewBag.order
-                               }), new PagedListRenderOptions()
-                               {
-                                   LiElementClasses = new string[] { "page-item", "page-link" }
-                               })
+                            {
+                            page = page,
+                            fromPrice = ViewBag.from,
+                            toPrice = ViewBag.to,
+                            order = ViewBag.order
+                            }), new PagedListRenderOptions()
+                            {
+                            LiElementClasses = new string[] { "page-item", "page-link" }
+                            })
                         </div>
                     </div>
                 </div>
             </div>
-              <div class="col-lg-3">
+            <div class="col-lg-3">
                 <div class="shop-widget-promo">
 
                     <a href="#"><img src="~/images/filter.jpg" alt="promo" /></a>
