@@ -3,7 +3,7 @@
     padding-left: 20px;
     padding-right: 30px;
     background: white;
-    height: 530px;
+   
 }
 
     .infor-customer > h4 {
@@ -22,7 +22,7 @@
 }
 
 .infor-order {
-    height: 150px;
+    height: 300px;
     margin-bottom: 30px;
     overflow-y: auto;
 }

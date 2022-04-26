@@ -17,7 +17,7 @@ namespace AnBinhMarket.Models.Components
         {
             var carts = _context.GioHangs.Where(g => g.TenTaiKhoan.Equals(TenTK)).ToList();
             var hds = _context.HoaDons.Where(x=>!x.IsDeleted).Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).Include(x => x.GioHang).ThenInclude(x => x.TaiKhoan);
-            var _receipts = carts.Join(hds, x => x.Id, y => y.MaGioHang, (x, y) => y);
+            var _receipts = carts.Join(hds, x => x.Id, y => y.MaGioHang, (x, y) => y).OrderByDescending(x=>x.NgayTao);
             if (_receipts != null)
             {
                 var result = new List<HoaDonViewModel>();
@@ -43,7 +43,7 @@ namespace AnBinhMarket.Models.Components
                         HoTen = hoaDon.GioHang.TaiKhoan.HoTen
                     });
                 }
-                return View(result);
+                return View(result.OrderByDescending(x=>x.NgayCapNhat));
             }
           
             return View(new List<HoaDonViewModel>());

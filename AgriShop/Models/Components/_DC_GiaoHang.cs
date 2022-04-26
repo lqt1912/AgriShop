@@ -2,6 +2,7 @@
 using AnBinhMarket.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AnBinhMarket.Models.Components
 {

@@ -15,7 +15,7 @@ namespace AnBinhMarket.Data
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<ThuongHieu> ThuongHieux { get; set; }
         public virtual DbSet<TinTuc> TinTucs { get; set; }
-
+        public virtual DbSet<DiaChiGiaoHang> DiaChiGiaoHangs { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

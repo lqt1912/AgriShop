@@ -28,6 +28,21 @@
             <div class="card">
                 <div class="card-body">
                     <div class="dash-widget-header">
+                        <span class="dash-widget-icon bg-danger">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>@ViewBag.tongTienHomNay</h3>
+                            <h6 class="text-muted"><a href="#">Doanh thu hôm nay</a></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-sm-4 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
                         <span class="dash-widget-icon bg-primary-light">
                             <i class="far fa-user"></i>
                         </span>
@@ -136,21 +151,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-sm-4 col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="dash-widget-header">
-                        <span class="dash-widget-icon bg-danger">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>@ViewBag.tongTienThangNay</h3>
-                            <h6 class="text-muted"><a href="@Url.Action("ThongKeTheoThang","Manage")">Doanh thu tháng này</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="col-xl-4 col-sm-4 col-12">
             <div class="card">
                 <div class="card-body">

@@ -23,10 +23,17 @@ namespace AnBinhMarket.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, int? subPage)
         {
             var products = _context.SanPhams.Where(x => !x.IsDeleted && 0 < x.GiaKM && x.GiaKM < x.Gia && x.SoLuong >0).OrderByDescending(p => p.Id);
             int pageNumber = (page ?? 1);
+            ViewBag.page = pageNumber;
+            var allProducts = _context.SanPhams.Where(x => !x.IsDeleted && x.SoLuong > 0).OrderByDescending(p => p.Id);
+            
+            int subPageNumber = (subPage ?? 1);
+            ViewBag.subPage = subPageNumber;
+
+            ViewBag.AllProducts = allProducts.ToPagedList(subPageNumber, 10);
 
             return View(products.ToPagedList(pageNumber, 10));
         }

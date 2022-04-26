@@ -9,6 +9,7 @@
 @{
     ViewBag.Title = "Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal phiShip = 0;
 }
 @section styles{
 <link href="~/css/custom/checkout.css" rel="stylesheet" />
@@ -17,43 +18,50 @@
 <section class="inner-section checkout-part" style="margin-top: 50px">
     <div class="container">
         <div class="row">
-            <form class="col-lg-6 alert-info infor-customer formOrder" action="/Checkout/Order" method="post">
+            <form class="col-lg-6 alert-info infor-customer formOrder" style="text-align: left" action="/Checkout/Order" method="post">
                 <h4>Thông Tin Giao Hàng</h4>
                 @await Component.InvokeAsync("_DC_GiaoHang")
             </form>
             <div class="col-lg-5 alert-info infor-customer order-detail">
                 <h4>Thông Tin Đơn Hàng</h4>
                 <div class="infor-order">
-                    @foreach (var item in Model)
-                    {
-                        <div class="infor-order-detail">
-                            <p class="row_infor">
-                                <b style="color: black;">@item.Soluong <i class="fas fa-times"></i></b>
-                                <span><a href="@Url.Action("Detail", "Product", new { id = item.SanPham.Id })" class="row_infor-link">@item.SanPham.TenSP</a></span>
-                            </p>
-                            @if (item.SanPham.Gia > item.SanPham.GiaKM && item.SanPham.GiaKM > 0)
-                            {
-                                <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM) VNĐ</span>
-                            }
-                            else
-                            {
-                                <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia) VNĐ</span>
-                            }
-                        </div>
-                    }
+                    <table style="width: 100%">
+                        <tr>
+                            <th>STT</th>
+                            <th>SL</th>
+                            <th>Tên SP</th>
+                            <th>Đơn giá</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(Model.IndexOf(item) +1)</td>
+                                <td>@item.Soluong</td>
+                                <td><span><a href="@Url.Action("Detail", "Product", new { id = item.SanPham.Id })" class="row_infor-link">@item.SanPham.TenSP</a></span></td>
+                                <td>@if (item.SanPham.Gia > item.SanPham.GiaKM && item.SanPham.GiaKM > 0)
+                                {
+                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM) VNĐ</span>
+                                }
+                                else
+                                {
+                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia) VNĐ</span>
+                                }</td>
+                            </tr>
+                        }
+                    </table>
                 </div>
                 <div class="form_infor-input infor-order-detail text-black-80">
                     <label>Phí giao hàng:</label>
-                    <span>15000 đ</span>
+                    <span id="PhiGiaoHang">0đ</span>
+                    <input type="hidden" id="inpPhiGiaoHang"/>
                 </div>
                 <div class="form_infor-input infor-order-detail text-black-80">
                     <label>Tổng tiền:</label>
                     @{
                         decimal sumTotall = decimal.Parse(ViewBag.sumTotal);
-                        sumTotall = sumTotall + 15000;
                         var _display = string.Format(CultureInfo.InvariantCulture, "{0:#,###}", sumTotall);
                     }
-                    <span>@_display đ</span>
+                    <span id="sumtotal" >@_display đ</span>
                 </div>
             </div>
         </div>
@@ -69,6 +77,19 @@
     </div>
 </section>
 <script>
+    function SelectItem(value){
+        console.log(value.value);
+        document.getElementById("PhiGiaoHang").innerText = value.value;
+        document.getElementById("inpPhiGiaoHang").value = value.value;
+        getSumTotal();
+    }
+
+    function getSumTotal(){
+        var sumTotall = @decimal.Parse(ViewBag.sumTotal);
+        sumTotall = sumTotall +parseInt(document.getElementById("PhiGiaoHang").innerText);
+        console.log(sumTotall);
+        document.getElementById("sumtotal").innerText = sumTotall;
+    }
     var orderbtn1 = document.querySelector('.orderbtn1');
     var btnThanhToan = document.getElementById("btn-thanhtoan");
     var tenKH = document.querySelector('#firstname');
@@ -77,6 +98,9 @@
     var yeuCauKhac = document.querySelector('#GhiChu');
     var soDienThoai = document.querySelector('#mobile');
     var formOrder = document.querySelector('.formOrder');
+
+    var diaChiGiaoHang = document.getElementById("inpPhiGiaoHang");
+
     btnThanhToan.addEventListener('click', () => {
         if (tenKH.value == '') {
             alert('Vui lòng nhập tên của bạn')
@@ -91,6 +115,8 @@
         }
         else if (soDienThoai.value == '') {
             alert('Số điện thoại nhập không đúng')
+        }else if (diaChiGiaoHang.value ==''){
+            alert("Vui lòng chọn quận giao hàng." )
         }
         else {
             formOrder.submit();

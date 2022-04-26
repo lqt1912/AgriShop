@@ -154,7 +154,7 @@ namespace AnBinhMarket.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Order(string DcNhanHang, string GhiChu)
+        public async Task<IActionResult> Order(string DcNhanHang, string GhiChu, IFormCollection fc)
         {
             List<CartItem> ListSP = new List<CartItem>();
             ListSP = HttpContext.Session.Get<List<CartItem>>("Cartsession");
@@ -197,7 +197,7 @@ namespace AnBinhMarket.Controllers
                         HoaDon hd = new HoaDon();
                         hd.NgayTao = DateTime.Now;
                         hd.TrangThai = "Chờ xác nhận";
-                        hd.PhiShip = 15000;
+                        hd.PhiShip =decimal.Parse(fc["DiaChiGiaoHang"]);
                         hd.ChuY = GhiChu;
                         hd.MaGioHang = generatedId;
                         if (DcNhanHang != "")
@@ -249,7 +249,15 @@ namespace AnBinhMarket.Controllers
                                 Subject = "Thông tin đặt hàng",
                                 ToEmail = user.Email
                             };
-                            await emailService.SendEmailAsync(request);
+                            try
+                            {
+                                await emailService.SendEmailAsync(request);
+
+                            }
+                            catch (Exception ex)
+                            {
+                                //Do nothing
+                            }
                         }
 
                         trs.Commit();

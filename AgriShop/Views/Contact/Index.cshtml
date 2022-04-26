@@ -34,3 +34,14 @@
     </div>
 </section>
 
+<script>
+     document.getElementById("btnSend").addEventListener('click', () => {
+        if (document.getElementById("txtAddress").value == '') {
+            alert('Vui lòng nhập địa chỉ của bạn')
+        }
+        else if (document.getElementById("txtContent").value == '') {
+            alert('Vui lòng nhập Nội dung')
+        }
+    })
+</script>
+

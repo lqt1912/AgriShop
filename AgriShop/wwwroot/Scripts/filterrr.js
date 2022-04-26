@@ -15,7 +15,10 @@
     }
 
     let url;
-    const { search, pathname } = window.location;
+    const {
+        search,
+        pathname
+    } = window.location;
 
     if (!search) {
         url = `${pathname}?fromPrice=${fromPrice}&toPrice=${toPrice}`;
@@ -24,6 +27,12 @@
             url = `${pathname}?order=asc&fromPrice=${fromPrice}&toPrice=${toPrice}`;
         } else if (search.indexOf("order=desc") !== -1) {
             url = `${pathname}?order=desc&fromPrice=${fromPrice}&toPrice=${toPrice}`;
+        } else if (search.indexOf("order=az") !== -1) {
+            url = `${pathname}?order=az&fromPrice=${fromPrice}&toPrice=${toPrice}`;
+        } else if (search.indexOf("order=za") !== -1) {
+            url = `${pathname}?order=za&fromPrice=${fromPrice}&toPrice=${toPrice}`;
+        } else if (search.indexOf("order=discount") !== -1) {
+            url = `${pathname}?order=discount&fromPrice=${fromPrice}&toPrice=${toPrice}`;
         } else {
             url = `${pathname}${search}&fromPrice=${fromPrice}&toPrice=${toPrice}`;
         }
@@ -32,11 +41,16 @@
     window.location = url;
 }
 const onSort = () => {
-    const { value } = document.getElementById("filter");
+    const {
+        value
+    } = document.getElementById("filter");
     document.getElementById("viewbag").value = value;
     let url;
 
-    let { search, pathname } = window.location;
+    let {
+        search,
+        pathname
+    } = window.location;
     search = search.replace("?order=asc", "");
     search = search.replace("?order=desc", "");
     search = search.replace("&order=asc", "");
@@ -47,6 +61,8 @@ const onSort = () => {
     search = search.replace("?order=az", "");
     search = search.replace("&order=za", "");
     search = search.replace("?order=za", "");
+    search = search.replace("&order=discount", "");
+    search = search.replace("?order=discount", "");
     if (!search) {
         url = `${pathname}?order=${value}`;
     } else if (search.indexOf("?") === -1) {
@@ -78,7 +94,10 @@ btn.addEventListener('click', (event) => {
     let idsExists = document.getElementById("cate-hidden").value;
 
     let url;
-    let { search, pathname } = window.location;
+    let {
+        search,
+        pathname
+    } = window.location;
 
     search = search.replace(`?category=${idsExists}`, "");
     search = search.replace(`&category=${idsExists}`, "");
@@ -100,29 +119,32 @@ btn.addEventListener('click', (event) => {
 });
 
 const onloadSelected = () => {
-    const { search } = window.location;
+    const {
+        search
+    } = window.location;
     if (search.indexOf("order=asc") !== -1) {
         document.getElementById("hdk-asc").selected = true;
         document.getElementById("viewbag").value = "asc";
-    }
-    else
+    } else
         if (search.indexOf("order=desc") !== -1) {
             document.getElementById("hdk-desc").selected = true;
             document.getElementById("viewbag").value = "desc";
-        }
-        else
+        } else
             if (search.indexOf("order=az") !== -1) {
                 document.getElementById("hdk-az").selected = true;
                 document.getElementById("viewbag").value = "az";
             } else
                 if (search.indexOf("order=za") !== -1) {
-                document.getElementById("hdk-za").selected = true;
-                document.getElementById("viewbag").value = "za";
-            }
-            else {
-                document.getElementById("hdk-default").selected = true;
-                document.getElementById("viewbag").value = "default";
-            }
+                    document.getElementById("hdk-za").selected = true;
+                    document.getElementById("viewbag").value = "za";
+                } else
+                    if (search.indexOf("order=discount") !== -1) {
+                        document.getElementById("hdk-discount").selected = true;
+                        document.getElementById("viewbag").value = "discount";
+                    } else {
+                        document.getElementById("hdk-default").selected = true;
+                        document.getElementById("viewbag").value = "default";
+                    }
 
     const idsExists = document.getElementById("cate-hidden").value;
     const ids = idsExists.split(",");

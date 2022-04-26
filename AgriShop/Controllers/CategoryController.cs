@@ -45,6 +45,9 @@ namespace AnBinhMarket.Controllers
                         products = products.OrderByDescending(p => p.TenSP);
                         ViewBag.order = "za";
                         break;
+                    case "discount":
+                        products = (IOrderedQueryable<SanPham>)products.Where(x => x.GiaKM > 0 && x.Gia > x.GiaKM);
+                        break;
                     default:
                         ViewBag.order = "default";
                         break;

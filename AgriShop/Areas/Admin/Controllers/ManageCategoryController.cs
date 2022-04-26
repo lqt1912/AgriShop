@@ -1,6 +1,8 @@
 ﻿using AnBinhMarket.Data;
 using AnBinhMarket.Data.Entities;
+using AnBinhMarket.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnBinhMarket.Areas.Admin.Controllers
 {
@@ -16,8 +18,22 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var danhmucs = _context.DanhMucs.Where(dm =>!dm.IsDeleted).OrderByDescending(dm => dm.Id ).ToList();
-            return View(danhmucs);
+
+            var danhmucs = _context.DanhMucs.Where(dm => !dm.IsDeleted).Include(x => x.SanPhams).OrderByDescending(dm => dm.Id).ToList();
+            var result = new List<DanhMucViewModel>();
+            foreach (var item in danhmucs)
+            {
+                var _a = new DanhMucViewModel()
+                {
+                    TenDanhMuc = item.TenDanhMuc,
+                    Id = item.Id,
+                    NgayCapNhat = item.NgayCapNhat,
+                    SoLuongSanPham = item.SanPhams.Count(),
+                };
+                result.Add(_a);
+            }
+
+            return View(result);
         }
 
         public IActionResult Create()
@@ -25,12 +41,24 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult Detail(Guid id)
+        {
+            var danhmuc = _context.DanhMucs.FirstOrDefault(x => x.Id == id);
+            if (danhmuc == null)
+            {
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
+            }
+            ViewBag.TenDanhMuc = danhmuc.TenDanhMuc;
+            var sanphams = _context.SanPhams.Where(x => !x.IsDeleted && x.MaDanhMuc == id).ToList();
+            return View(sanphams);
+
+        }
         // POST: Admin/ManageCategory/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create( DanhMuc danhMuc)
+        public IActionResult Create(DanhMuc danhMuc)
         {
             try
             {
@@ -72,12 +100,12 @@ namespace AnBinhMarket.Areas.Admin.Controllers
 
         public IActionResult Edit(Guid id)
         {
-           
+
             var danhMuc = _context.DanhMucs.Find(id);
 
             if (danhMuc == null)
             {
-                return RedirectToAction("Index", "NotFound", new {Area="Admin"});
+                return RedirectToAction("Index", "NotFound", new { Area = "Admin" });
             }
             return View(danhMuc);
         }
@@ -92,14 +120,14 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             try
             {
                 var _danhMuc = _context.DanhMucs.Find(danhMuc.Id);
-                if( _danhMuc != null)
+                if (_danhMuc != null)
                 {
                     _danhMuc.NgayCapNhat = DateTime.Now;
                     _danhMuc.TenDanhMuc = danhMuc.TenDanhMuc;
                     _context.Update(_danhMuc);
                     _context.SaveChanges();
                 }
-                    setAlert("Sửa danh mục thành công!", "success");
+                setAlert("Sửa danh mục thành công!", "success");
 
                 return RedirectToAction("Index");
             }

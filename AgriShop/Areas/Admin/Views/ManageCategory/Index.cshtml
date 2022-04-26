@@ -1,6 +1,7 @@
 ﻿@using AnBinhMarket.Data.Entities
+@using AnBinhMarket.Models
 
-@model IEnumerable<DanhMuc>
+@model IEnumerable<DanhMucViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -52,6 +53,8 @@
                                     <th>Mã</th>
                                     <th>Tên danh mục</th>
                                     <th>Ngày chỉnh sửa</th>
+                                    <th>Số Sản phẩm</th>
+
                                     <th class="text-right">Hành động</th>
                                 </tr>
                             </thead>
@@ -62,6 +65,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Id)</td>
                                         <td>@Html.DisplayFor(modelItem => item.TenDanhMuc)</td>
                                         <td>@Html.DisplayFor(modelItem => item.NgayCapNhat)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.SoLuongSanPham)</td>
                                         <td class="text-right">
                                             <a href="@Url.Action("Edit", "ManageCategory", new { id = item.Id })"
                                                class="btn btn-sm bg-primary-light mr-2">
@@ -70,6 +74,10 @@
                                             <a href="@Url.Action("Delete", "ManageCategory", new { id = item.Id })"
                                                class="btn btn-sm bg-danger-light mr-2">
                                                 <i class="far fa-trash-alt mr-1"></i> Xoá
+                                            </a>
+                                             <a href="@Url.Action("Detail", "ManageCategory", new { id = item.Id })"
+                                               class="btn btn-sm bg-primary-light mr-2">
+                                                <i class="far fa-eye mr-1"></i> Danh sách sản phẩm
                                             </a>
                                         </td>
                                     </tr>

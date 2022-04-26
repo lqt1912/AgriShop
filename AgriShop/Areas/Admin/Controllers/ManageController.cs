@@ -35,6 +35,18 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             List<HoaDon> hds = db.HoaDons.Include(x => x.GioHang).ThenInclude(x => x.ChiTietGioHangs).Where(h => h.NgayTao.Month == today.Month &&
                         h.NgayTao.Year == today.Year && h.TrangThai.Equals("Đã giao") && !h.IsDeleted).ToList();
 
+            var todayHds = db.HoaDons
+                .Include(x => x.GioHang)
+                .ThenInclude(x => x.ChiTietGioHangs)
+                .Where(x => x.NgayTao == DateTime.Today.Date 
+                && x.TrangThai.Equals("Đã giao")
+                && !x.IsDeleted);
+
+            decimal tongTienHomNay = 0;
+            foreach (var item in todayHds)
+            {
+                tongTienHomNay += item.GioHang.ChiTietGioHangs.Select(c => c.SoLuong * c.Gia).Sum();
+            }
             decimal tongTienNum = 0;
             foreach (var item in hds)
             {
@@ -63,6 +75,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             string tongTien = string.Format("{0:0,000}", tongTienNum);
             string tongTienTrongNam = string.Format("{0:0,000}", tongTienTrongNamNum);
             ViewBag.tongTienThangNay = tongTien;
+            ViewBag.tongTienHomNay = string.Format("{0:0,000}", tongTienHomNay);
             ViewBag.tongTienTrongNam = tongTienTrongNam;
             return View();
         }
