@@ -71,7 +71,7 @@ namespace AnBinhMarket.Controllers
             }
 
             ViewBag.keyword = keyword;
-            ViewBag.Categories = _context.DanhMucs.OrderBy(c => c.MaDanhMuc).ToList();
+            ViewBag.Categories = _context.DanhMucs.ToList();
             return View(products.ToPagedList(page, 12));
         }
         public JsonResult Index(Guid id)

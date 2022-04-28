@@ -137,7 +137,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                     _tinTuc.NgayCapNhat = DateTime.Now;
                     _tinTuc.NgayTao = tinTuc.NgayTao;
                     _tinTuc.TieuDe = tinTuc.TieuDe;
-                    _tinTuc.TenTaiKhoan = tinTuc.TenTaiKhoan;
                     var fileArray = Request.Form.Files;
                     if (fileArray.Count > 0)
                     {

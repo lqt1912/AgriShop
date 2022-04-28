@@ -2,8 +2,6 @@
 {
     public class PhanHoi :BaseEntity
     {
-        public int  MaPhanHoi { get; set; }
-
         public string  Ten { get; set; }
         public string  SoDT { get; set; }
         public string Email { get; set; }

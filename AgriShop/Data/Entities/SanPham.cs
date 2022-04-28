@@ -7,7 +7,6 @@ namespace AnBinhMarket.Data.Entities
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
-        public int? MaSP { get; set; }
 
         [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
         [StringLength(200)]

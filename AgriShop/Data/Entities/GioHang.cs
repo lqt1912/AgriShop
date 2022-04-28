@@ -4,7 +4,6 @@ namespace AnBinhMarket.Data.Entities
 {
     public class GioHang :BaseEntity
     {
-        public int  MaGioHang { get; set; }
         public DateTime NgayTao { get; set; } = DateTime.Now;
         public DateTime NgayCapNhat { get; set; } = DateTime.Now;
 

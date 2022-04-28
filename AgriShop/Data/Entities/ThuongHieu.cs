@@ -4,7 +4,6 @@ namespace AnBinhMarket.Data.Entities
 {
     public class ThuongHieu: BaseEntity
     {
-        public int?  MaTH { get; set; }
 
         [Required(ErrorMessage = "Tên thương hiệu không được để trống")]
         [StringLength(150)]

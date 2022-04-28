@@ -5,7 +5,6 @@ namespace AnBinhMarket.Data.Entities
 {
     public class TinTuc : BaseEntity
     {
-        public int? MaTinTuc { get; set; }
 
         [Required(ErrorMessage = "Tiêu đề không được để trống")]
         [StringLength(255)]

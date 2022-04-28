@@ -9,7 +9,6 @@ namespace AnBinhMarket.Data.Entities
         {
             SanPhams = new HashSet<SanPham>();
         }
-        public int? MaDanhMuc { get; set; }
 
         [Required(ErrorMessage = ("Tên danh mục không được để trống"))]
         [StringLength(100)]

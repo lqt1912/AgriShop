@@ -56,10 +56,10 @@
                                          orderby tongSl descending
                                          select new
                                          {
-                                             sanpham.MaSP,
                                              sanpham.TenSP,
                                              sanpham.Gia,
-                                             SoLuongBan = tongSl
+                                             SoLuongBan = tongSl, 
+                                             GiaKM = sanpham.GiaKM
                                          }
                                          ).Take(5);
 
@@ -69,6 +69,8 @@
 
                                         <th>Tên thương hiệu</th>
                                         <th>Giá</th>
+                                        <th>Giá KM</th>
+
                                         <th class="text-right">Tổng số lượng bán</th>
                                     </tr>
                                 </thead>
@@ -79,6 +81,8 @@
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.TenSP)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Gia)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.GiaKM)</td>
+
                                             <td class="text-right">@Html.DisplayFor(modelItem => item.SoLuongBan)</td>
                                         </tr>
 

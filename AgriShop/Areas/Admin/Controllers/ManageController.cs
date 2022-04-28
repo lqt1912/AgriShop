@@ -38,14 +38,14 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             var todayHds = db.HoaDons
                 .Include(x => x.GioHang)
                 .ThenInclude(x => x.ChiTietGioHangs)
-                .Where(x => x.NgayTao == DateTime.Today.Date 
+                .Where(x => x.NgayTao.Day == DateTime.Today.Day 
                 && x.TrangThai.Equals("Đã giao")
                 && !x.IsDeleted);
 
             decimal tongTienHomNay = 0;
             foreach (var item in todayHds)
             {
-                tongTienHomNay += item.GioHang.ChiTietGioHangs.Select(c => c.SoLuong * c.Gia).Sum();
+                tongTienHomNay += (item.GioHang.ChiTietGioHangs.Select(c => c.SoLuong * c.Gia).Sum()+ item.PhiShip);
             }
             decimal tongTienNum = 0;
             foreach (var item in hds)
@@ -165,7 +165,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 return Redirect("/NotFound/Index");
             }
 
-            var products = db.SanPhams.Include(x => x.ThuongHieu).Where(p => p.MaTH == id).OrderByDescending(p => p.MaSP);
+            var products = db.SanPhams.Include(x => x.ThuongHieu).Where(p => p.MaTH == id).OrderByDescending(p => p.TenSP);
 
 
             ViewBag.TradeMark = trademark.TenHuongHieu;
@@ -209,7 +209,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 {
                     ChuY = hoaDon.ChuY,
                     DiaChi = hoaDon.DiaChi,
-                    MaHoaDon = hoaDon.MaHoaDon,
                     NgayCapNhat = hoaDon.NgayCapNhat,
                     NgayTao = hoaDon.NgayTao,
                     ThanhTien = thanhTien + hoaDon.PhiShip,
@@ -259,7 +258,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 {
                     ChuY = hoaDon.ChuY,
                     DiaChi = hoaDon.DiaChi,
-                    MaHoaDon = hoaDon.MaHoaDon,
                     NgayCapNhat = hoaDon.NgayCapNhat,
                     NgayTao = hoaDon.NgayTao,
                     ThanhTien = thanhTien + hoaDon.PhiShip,
@@ -308,7 +306,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 {
                     ChuY = hoaDon.ChuY,
                     DiaChi = hoaDon.DiaChi,
-                    MaHoaDon = hoaDon.MaHoaDon,
                     NgayCapNhat = hoaDon.NgayCapNhat,
                     NgayTao = hoaDon.NgayTao,
                     ThanhTien = thanhTien + hoaDon.PhiShip,

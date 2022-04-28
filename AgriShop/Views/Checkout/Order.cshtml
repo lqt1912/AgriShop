@@ -30,7 +30,8 @@
                             <th>STT</th>
                             <th>SL</th>
                             <th>Tên SP</th>
-                            <th>Đơn giá</th>
+                            <th>Đơn giá (VNĐ)</th>
+                            <th>Thành tiền (VNĐ)</th>
                         </tr>
                         @foreach (var item in Model)
                         {
@@ -40,11 +41,20 @@
                                 <td><span><a href="@Url.Action("Detail", "Product", new { id = item.SanPham.Id })" class="row_infor-link">@item.SanPham.TenSP</a></span></td>
                                 <td>@if (item.SanPham.Gia > item.SanPham.GiaKM && item.SanPham.GiaKM > 0)
                                 {
-                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM) VNĐ</span>
+                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM)</span>
                                 }
                                 else
                                 {
-                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia) VNĐ</span>
+                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia)</span>
+                                }</td>
+
+                                <td>@if (item.SanPham.Gia > item.SanPham.GiaKM && item.SanPham.GiaKM > 0)
+                                {
+                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM * item.Soluong)</span>
+                                }
+                                else
+                                {
+                                    <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia * item.Soluong )</span>
                                 }</td>
                             </tr>
                         }

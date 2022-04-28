@@ -64,7 +64,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             {
                 var danhmuc = new DanhMuc()
                 {
-                    MaDanhMuc = danhMuc.MaDanhMuc,
                     TenDanhMuc = danhMuc.TenDanhMuc
                 };
                 _context.DanhMucs.Add(danhmuc);

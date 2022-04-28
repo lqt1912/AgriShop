@@ -4,6 +4,7 @@ using AnBinhMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnBinhMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428142714_remove-mahoadon")]
+    partial class removemahoadon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,6 +312,9 @@ namespace AnBinhMarket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MaPhanHoi")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
 
@@ -353,6 +358,9 @@ namespace AnBinhMarket.Migrations
 
                     b.Property<Guid>("MaDanhMuc")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("MaSP")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("MaTH")
                         .HasColumnType("uniqueidentifier");
@@ -398,6 +406,9 @@ namespace AnBinhMarket.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("MaTH")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("NgayCapNhat")
                         .HasColumnType("datetime2");
 
@@ -427,6 +438,9 @@ namespace AnBinhMarket.Migrations
 
                     b.Property<bool>("IsDDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("MaTinTuc")
+                        .HasColumnType("int");
 
                     b.Property<string>("MoTaChiTiet")
                         .IsRequired()

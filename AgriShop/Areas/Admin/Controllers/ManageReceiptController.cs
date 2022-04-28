@@ -36,7 +36,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                 {
                     ChuY = hoaDon.ChuY,
                     DiaChi = hoaDon.DiaChi,
-                    MaHoaDon = hoaDon.MaHoaDon,
                     NgayCapNhat = hoaDon.NgayCapNhat,
                     NgayTao = hoaDon.NgayTao,
                     ThanhTien = thanhTien + hoaDon.PhiShip,

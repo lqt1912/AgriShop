@@ -22,7 +22,6 @@ namespace AnBinhMarket.Models
             {
                 DiaChi = ph.DiaChi,
                 Email = ph.Email,
-                MaPhanHoi = ph.MaPhanHoi,
                 NgayTao = DateTime.Now,
                 NoiDung = ph.NoiDung,
                 SoDT = ph.SoDT,

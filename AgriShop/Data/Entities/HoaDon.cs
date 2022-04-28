@@ -4,7 +4,6 @@ namespace AnBinhMarket.Data.Entities
 {
     public class HoaDon :BaseEntity
     {
-        public int  MaHoaDon { get; set; }
         public string TrangThai { get; set; }
 
         public decimal PhiShip { get; set; }

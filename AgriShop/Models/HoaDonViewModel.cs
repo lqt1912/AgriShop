@@ -3,7 +3,6 @@
     public class HoaDonViewModel
     {
         public Guid Id { get; set; }
-        public int MaHoaDon { get; set; }
         public string TrangThai { get; set; }
 
         public decimal PhiShip { get; set; }

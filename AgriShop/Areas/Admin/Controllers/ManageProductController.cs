@@ -26,7 +26,7 @@ namespace AnBinhMarket.Areas.Admin.Controllers
             {
                 sanphams = sanphams.Where(p => p.TenSP.Contains(searchString)).ToList();
             }
-            return View(sanphams.OrderByDescending(p => p.MaSP).ToList());
+            return View(sanphams.OrderByDescending(p => p.TenSP).ToList());
         }
         public IActionResult Create()
         {
@@ -61,7 +61,6 @@ namespace AnBinhMarket.Areas.Admin.Controllers
                     Gia = sanPham.Gia,
                     GiaKM = sanPham.GiaKM, 
                     MaDanhMuc = sanPham.MaDanhMuc,
-                    MaSP = sanPham.MaSP,
                     MaTH = sanPham.MaTH,
                     MoTa = sanPham.MoTa,
                     NgayCapNhat = DateTime.Now,
