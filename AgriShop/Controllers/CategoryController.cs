@@ -47,6 +47,7 @@ namespace AnBinhMarket.Controllers
                         break;
                     case "discount":
                         products = (IOrderedQueryable<SanPham>)products.Where(x => x.GiaKM > 0 && x.Gia > x.GiaKM);
+                        ViewBag.order = "discount";
                         break;
                     default:
                         ViewBag.order = "default";
@@ -67,8 +68,8 @@ namespace AnBinhMarket.Controllers
 
             int pageNumber = (page ?? 1);
             ViewBag.Category = category.TenDanhMuc;
-
-            return View(products.ToPagedList(pageNumber, 8));
+            ViewBag.CateId = id;
+            return View(products.ToPagedList(pageNumber, 4));
         }
     }
 }
