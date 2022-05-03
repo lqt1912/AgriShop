@@ -1,0 +1,130 @@
+﻿@using AnBinhMarket.Data.Entities
+@using AnBinhMarket.Models
+
+
+@model IEnumerable<HoaDonViewModel>
+
+@{
+    ViewBag.Title = "ThongKeTrongNam";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section styles{
+<!-- Datepicker CSS -->
+<link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
+<!-- Datatables CSS -->
+<link rel="stylesheet" href="~/Asset/plugins/datatables/datatables.min.css" />
+<link href="~/Asset/css/material-dashboard.css" rel="stylesheet" />
+}
+<!-- Start alert -->
+<div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="page-title">Lọc đơn hàng theo thời gian</h3>
+            </div>
+            <div class="col-auto">
+                <a href="@Url.Action("Index", "Manage")"
+                   class="btn btn-primary ml-3">
+                    Trở về trang thống kê
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <label>Từ ngày</label>
+                <input id="FromDate" class="form-control" type="date" />
+
+            </div>
+            <div class="col-md-4 col-12">
+                <label>Đến ngày</label>
+
+                <input id="ToDate" class="form-control" type="date" />
+
+            </div>
+            <div class="col-md-4 col-12">
+                <br />
+
+                <button class="btn btn-outline-primary" id="btn-filter" onclick="filterReceipt()">Áp dụng</button>
+            </div>
+        </div>
+        @{
+            if (ViewBag.FromDate != null && ViewBag.ToDate != null && ViewBag.SumTotal != null)
+            {
+                <div class="pt-2">
+                    Doanh thu từ <strong>@ViewBag.FromDate </strong> đến <strong>@ViewBag.ToDate</strong> là <strong>@ViewBag.SumTotal.ToString("N0") </strong> VNĐ
+                </div>
+            }
+        }
+
+
+    </div>
+    <!-- /Page Header -->
+    <!-- Start alert -->
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div style="display: none" id="deletee" class="alert alert-danger text-center" role="alert"></div>
+        </div>
+        <div class="col-4"></div>
+
+    </div>
+    <!-- End alert -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0 datatable">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Thành tiền (VNĐ)</th>
+                                    <th class="text-right">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NgayTao)</td>
+                                        <td>@item.ThanhTien.ToString("N0")</td>
+                                        <td class="text-right">
+                                            <a href="@Url.Action("DonHangTrongNam","Manage",new {id = item.Id})"
+                                           class="btn btn-sm bg-primary-light mr-2">
+                                                <i class="far fa-eye mr-1"></i>Chi tiết
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function filterReceipt(){
+      let url;
+    const {pathname } = window.location;
+    var fromDate = document.getElementById('FromDate').value;
+    var toDate = document.getElementById('ToDate').value;
+    if(fromDate === '' || toDate ===''){
+        alert("Vui lòng chọn giá trị còn thiếu");
+    }
+    url = `${pathname}?fromDate=${fromDate}&toDate=${toDate}`;
+    window.location = url;
+    }
+
+</script>

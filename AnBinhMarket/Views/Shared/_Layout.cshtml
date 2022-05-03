@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AnBinhMarket</title>
+    <meta name="author" content="mironcoder" />
+    <meta name="email" content="mironcoder@gmail.com" />
+    <meta name="profile" content="https://themeforest.net/user/mironcoder" />
+    <meta name="template" content="Organe" />
+    <meta name="title" content="Ecomart" />
+    <meta name="keywords"
+          content="organe, organic, food, shop, ecommerce, store, html, agriculture, vegetable, organic food, organic product, organic farm, organic life, organic shop, food store" />
+    <title>
+        ANBINH MARKET - Trái Cây &amp; Thực Phẩm Sạch Việt Nam &amp; Nhập Khẩu
+    </title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" href="~/logo.jpg" type="image/png">
+    @*<script src=" /js/vendor/jquery.min.js"></script>*@
+    <link rel="stylesheet" href="~/fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="~/fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="~/fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="~/css/vendor/nice-select.min.css" />
+    <link rel="stylesheet" href="~/css/vendor/venobox.min.css" />
+    <link rel="stylesheet" href="~/css/vendor/slick.min.css" />
+    <link rel="stylesheet" href="~/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/custom/mainnnn.css" />
+    <link rel="stylesheet" href="~/css/custom/index.css" />
+    <link href="~/css/vendor/toastr.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    @RenderSection("styles", required: false)
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+</head>
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 300
+    }
+</style>
+<body style="">
+    <div class="back-drop">
+    </div>
+
+    @await  Component.InvokeAsync("_Header")
+    @await Component.InvokeAsync("_MenuPC")
+    @await Component.InvokeAsync("_MenuMobile")
+
+    @RenderBody()
+
+
+    <footer class="footer-part">
+        <div class="container bg-white py-4">
+            <div class="row">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget">
+                        <h6><b>Tổng đài chăm sóc khách hàng</b></h6>
+                        <p>
+                            - Hotline: 1800 69 30<br />F
+                            - Thời gian hoạt động:<br />
+                            &nbsp; + Thứ 2 - 6: 8h - 17h <br />
+                            &nbsp; + Thứ 7: 8h - 12h30
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget contact">
+                        <h5 class="footer-title">VỀ ANBINH MARKET</h5>
+                        <p>
+                            Giấy Phép Bán Lẻ:<br />
+                            Số 73/GP-PKT cấp ngày 16/12/2019<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget">
+                        <h5 class="footer-title">HỆ THỐNG CỬA HÀNG </h5>
+                        <p>
+                            - Thời gian hoạt động:<br />
+                            - Từ thứ 2 đến chủ nhật:<br />
+                            &nbsp; +Giờ mở cửa: 6h30 - 21h <br />
+                            &nbsp; + Giờ tư vấn: 6h30 - 22h30
+                        </p>
+                        <p class="footer-title">AnBinh Market Nguyễn Thị Minh Khai</p>
+                        <p>
+                            Số 18 Minh Khai, Hà Nội <br />
+                            0123 456 789
+                        </p>
+                        <p class="footer-title">AnBinh Market Hoàng Hoa Thám</p>
+                        <p>
+                            Số 59 Hoàng Hoa Thám, Ba Đình, Hà Nội <br />
+                            0123 456 789 
+                        </p>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="footer-widget">
+                        <h3 class="footer-title">THEO DÕI CHÚNG TÔI</h3>
+                        <p class="footer-desc">
+                            Ứng dụng AnBinh Market đã có trên Google Play & App Store. Tải ứng
+                            dụng ngay!
+                        </p>
+                        <div class="footer-app">
+                            <a href="#"><img src="~/images/google-store.png" alt="google" /></a><a href="#">
+                                <img src="~/images/app-store.png" alt="app" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-bottom">
+                        <p class="footer-copytext">
+                            AnBinh MARKET - Trái Cây & Thực Phẩm Sạch Việt Nam
+                        </p>
+                        <div class="footer-card">
+                            <a href="#"><img src="~/images/01.jpg" alt="payment" /></a><a href="#">
+                                <img src="~/images/02.jpg" alt="payment" />
+                            </a><a href="#">
+                                <img src="~/images/03.jpg"
+                                     alt="payment" />
+                            </a><a href="#"><img src="~/images/04.jpg" alt="payment" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </footer>
+    <script src="/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/js/vendor/popper.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+    <script src="/js/vendor/nice-select.min.js"></script>
+    <script src="/js/vendor/venobox.min.js"></script>
+    <script src="/js/vendor/countdown.min.js"></script>
+    <script src="/js/vendor/slick.min.js"></script>
+    <script src="/js/custom/nice-select.js"></script>
+    <script src="/js/custom/countdown.js"></script>
+    <script src="/js/custom/accordion.js"></script>
+    <script src="/js/custom/venobox.js"></script>
+    <script src="/js/custom/slick.js"></script>
+    <script src="/js/vendor/toastr.js"></script>
+    <script src="/js/custom/main.js"></script>
+    <script src="~/Asset/js/notification.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
