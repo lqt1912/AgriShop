@@ -1,0 +1,48 @@
+﻿@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
+@model IEnumerable<DanhMuc>
+<nav class="navbar-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="navbar-content">
+                    <ul class="navbar-list">
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","Home", new {
+                                Area = ""
+                            })">Trang chủ</a>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link dropdown-arrow" href="@Url.Action("Index","Home", new {
+                                Area = ""
+                            })">Danh mục sản phẩm</a>
+                            <ul class="dropdown-position-list">
+                                @foreach (var item in Model)
+                                {
+                                    <li><a href="@Url.Action("Detail","Category", new { id = item.Id, Area="" })">@item.TenDanhMuc</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","News", new {Area =""} )">Tin tức</a>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","Introduce", new {Area =""} )">Giới thiệu</a>
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link" href="@Url.Action("Index","Contact", new {Area =""} )">Phản hồi</a>
+                        </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                        {
+                            <li class="navbar-item dropdown">
+                                <a class="navbar-link" href="@Url.Action("Index", "Manage" , new {Area = "Admin"})">Admin</a>
+                            </li>
+                        }
+
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,84 @@
+﻿@model AnBinhMarket.Data.Entities.TinTuc
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Thêm tin tức</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Form -->
+                    <form method="post" action="@Url.Action("Create","ManageNews")" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label><strong>Tiêu đề</strong></label>
+                            @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4"><strong>Ảnh minh họa</strong></label>
+                            <img id="output" class="img-rounded" width="200" height="200" src="~/products/no-image-news.png" alt="Ảnh" />
+                            <p class="text-center"><label for="ufile" style="cursor:pointer;">Chọn file ảnh</label></p>
+                            <input name="HinhAnh" id="ufile" type="file" style="display:none;" onchange="loadFile(event)" />
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Mô tả ngắn</strong></label>
+                            @Html.EditorFor(model => model.MoTaNgan, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MoTaNgan, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for=""><strong>Mô tả chi tiết</strong></label>
+                            @Html.TextAreaFor(model => model.MoTaChiTiet, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                            @Html.ValidationMessageFor(model => model.MoTaChiTiet, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mt-4">
+                            <button class="btn btn-primary" type="submit">
+                                Thêm
+                            </button>
+                            <a href="@Url.Action("Index","ManageNews")" class="btn btn-link">Huỷ</a>
+                        </div>
+                    </form>
+                    <!-- /Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}
+   <script src="/Asset/js/jquery-3.5.0.min.js"></script>
+<script src="/Asset/plugins/ckeditor/ckeditor.js"></script>
+<script>
+    var editor = CKEDITOR.replace('txtContent', {
+        customConfig: '/Asset/plugins/ckeditor/config.js'
+    })
+</script>
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0])
+    }
+
+</script>
+
+

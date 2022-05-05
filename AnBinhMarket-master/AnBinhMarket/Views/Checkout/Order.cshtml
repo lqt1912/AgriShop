@@ -1,0 +1,164 @@
+﻿@model List<CartItem>
+@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
+@using Microsoft.AspNetCore.Identity
+@using System.Globalization
+@inject SignInManager<ApplicationUser> signinManager
+@inject UserManager<ApplicationUser> userManager
+@inject ApplicationDbContext _context
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal phiShip = 0;
+}
+@section styles{
+<link href="~/css/custom/checkout.css" rel="stylesheet" />
+<link href="~/css/custom/Order.css" rel="stylesheet" />
+}
+<section class="inner-section checkout-part" style="margin-top: 50px">
+    <div class="container">
+        <div class="row">
+            <form class="col-lg-6 alert-info infor-customer formOrder" style="text-align: left" action="/Checkout/Order" method="post">
+                <h4>Thông Tin Giao Hàng</h4>
+                @await Component.InvokeAsync("_DC_GiaoHang")
+
+            </form>
+            <div class="col-lg-5 alert-info infor-customer order-detail">
+                <h4>Thông Tin Đơn Hàng</h4>
+                <div class="infor-order">
+                    <table style="width: 100%">
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên SP</th>
+                            <th>Đơn giá (VNĐ)</th>
+                            <th>SL</th>
+                            <th>Thành tiền (VNĐ)</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(Model.IndexOf(item) +1)</td>
+                     
+                                <td><span><a href="@Url.Action("Detail", "Product", new { id = item.SanPham.Id })" class="row_infor-link">@item.SanPham.TenSP</a></span></td>
+                                <td>
+                                    @if (item.SanPham.Gia > item.SanPham.GiaKM && item.SanPham.GiaKM > 0)
+                                    {
+                                        <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia)</span>
+                                    }
+                                </td>
+                                 <td>@item.Soluong</td>
+                                <td>
+                                    @if (item.SanPham.Gia > item.SanPham.GiaKM && item.SanPham.GiaKM > 0)
+                                    {
+                                        <span class="row_price">@string.Format("{0:#,###}", item.SanPham.GiaKM * item.Soluong)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="row_price">@string.Format("{0:#,###}", item.SanPham.Gia * item.Soluong )</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="form_infor-input infor-order-detail text-black-80">
+                    <label>Phí giao hàng:</label>
+                    <span id="PhiGiaoHang">0 VNĐ</span>
+                    <input type="hidden" id="inpPhiGiaoHang" />
+                </div>
+                <div class="form_infor-input infor-order-detail text-black-80">
+                    <label>Tổng tiền:</label>
+                    @{
+                        decimal sumTotall = decimal.Parse(ViewBag.sumTotal);
+                        var _display = string.Format(CultureInfo.InvariantCulture, "{0:#,###}", sumTotall);
+                    }
+                    <span id="sumtotal">@_display VNĐ</span>
+                </div>
+                <div >
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p > Đơn hàng sẽ được xác nhận khi đơn hàng có giá trị tối thiểu là 60.000 VNĐ</p>
+                   
+                    <p>Đơn hàng từ 500.000 VNĐ sẽ được miễn phí ship</p>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="row button-order">
+            <div class="col-lg-3 col-md-5 my-2">
+                <a href="/Home/Index" class="btn btn-inline">Quay lại mua hàng</a>
+            </div>
+            <div class="col-lg-7 col-sm-1"></div>
+            <div class="col-lg-2 col-sm-5 my-2">
+                <button class="btn btn-inline orderbtn1" id="btn-thanhtoan">Đặt hàng</button>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function SelectItem(value){
+
+        console.log(value.value);
+        document.getElementById("PhiGiaoHang").innerText =parseInt(value.value) + ' VNĐ';
+        document.getElementById("inpPhiGiaoHang").value = value.value;
+        var sumTotall = @decimal.Parse(ViewBag.sumTotal);
+        if(sumTotall >=500000){
+            document.getElementById("PhiGiaoHang").innerText = 0 + 'VNĐ';
+            document.getElementById("inpPhiGiaoHang").value = 0;
+        }
+        getSumTotal();
+    }
+
+    function getSumTotal(){
+        var sumTotall = @decimal.Parse(ViewBag.sumTotal);
+        sumTotall = sumTotall +parseInt(document.getElementById("PhiGiaoHang").innerText);
+        console.log(sumTotall);
+        document.getElementById("sumtotal").innerText = sumTotall + ' VNĐ';
+    }
+    var orderbtn1 = document.querySelector('.orderbtn1');
+    var btnThanhToan = document.getElementById("btn-thanhtoan");
+    var tenKH = document.querySelector('#firstname');
+    var diaChi = document.querySelector('#address');
+    var diaChiArea = document.querySelector('#DcNhanHang');
+    var yeuCauKhac = document.querySelector('#GhiChu');
+    var soDienThoai = document.querySelector('#mobile');
+    var formOrder = document.querySelector('.formOrder');
+
+    var diaChiGiaoHang = document.getElementById("inpPhiGiaoHang");
+
+    btnThanhToan.addEventListener('click', () => {
+        var sumTotall = @decimal.Parse(ViewBag.sumTotal);
+        if(sumTotall <60000){
+            alert('Đơn hàng chưa đạt giá trị tối thiểu. ')
+            return;
+        }
+        if (tenKH.value == '') {
+            alert('Vui lòng nhập tên của bạn')
+        }
+        else if (diaChi.value == '') {
+            alert('Vui lòng nhập địa chỉ')
+        }
+        else if(diaChiArea.value ==''){
+            alert('Vui lòng nhập địa chỉ giao hàng')
+        } else if (yeuCauKhac.value  ==''){
+            alert('Vui lòng nhập ghi chú')
+        }
+        else if (soDienThoai.value == '') {
+            alert('Số điện thoại nhập không đúng')
+        }else if (diaChiGiaoHang.value ==''){
+            alert("Vui lòng chọn quận giao hàng." )
+        }
+        else {
+            formOrder.submit();
+            alert('Đặt hàng thành công, vui lòng kích vào tài khoản để kiểm tra tình trạng đơn hàng của bạn. ');
+        }
+    })
+</script>
+
+
+

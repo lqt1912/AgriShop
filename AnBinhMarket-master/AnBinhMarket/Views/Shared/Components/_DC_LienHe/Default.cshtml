@@ -1,0 +1,69 @@
+﻿@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> signinManager
+@inject UserManager<ApplicationUser> userManager
+@inject ApplicationDbContext _context
+@if (signinManager.IsSignedIn(User))
+{
+    {
+        var userId = userManager.GetUserId(User);
+        if (userId != null)
+        {
+            var currentUser = _context.Users.FirstOrDefault(x => x.Id == Guid.Parse(userId));
+            <div class="form-group">
+                <input type="text" name="Ten" id="txtName" value="@currentUser?.HoTen" class="form-control bg-white" placeholder="Họ tên*" />
+            </div>
+            <div class="form-group">
+                <input type="text" name="SoDT" id="txtPhone" value="@currentUser?.PhoneNumber" class="form-control bg-white" placeholder="Số điện thoại*" />
+            </div>
+            <div class="form-group">
+                <input type="email" name="Email" id="txtEmail" value="@currentUser?.Email" class="form-control bg-white" placeholder="Email*" />
+            </div>
+            <div class="form-group">
+                <input type="text" name="DiaChi" id="txtAddress" class="form-control bg-white" placeholder="Địa chỉ*" />
+            </div>
+            <div class="form-group">
+                <textarea class="form-control bg-white" name="NoiDung" id="txtContent" placeholder="Nhập nội dung*" rows="3"></textarea>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <input type="text" name="Ten" id="txtName" class="form-control bg-white" placeholder="Họ tên*" />
+            </div>
+            <div class="form-group">
+                <input type="number" name="SoDT" id="txtPhone" class="form-control bg-white" placeholder="Số điện thoại*" />
+            </div>
+            <div class="form-group">
+                <input type="email" name="Email" id="txtEmail" class="form-control bg-white" placeholder="Email*" />
+            </div>
+            <div class="form-group">
+                <input type="text" name="DiaChi" id="txtAddress" class="form-control bg-white" placeholder="Địa chỉ*" />
+            </div>
+            <div class="form-group">
+                <textarea class="form-control bg-white" name="NoiDung" id="txtContent" placeholder="Nhập nội dung*" rows="3"></textarea>
+            </div>
+        }
+    }
+
+}
+else
+{
+    <div class="form-group">
+        <input type="text" name="Ten" id="txtName" class="form-control bg-white" placeholder="Họ tên*" />
+    </div>
+    <div class="form-group">
+        <input type="number" name="SoDT" id="txtPhone" class="form-control bg-white" placeholder="Số điện thoại*" />
+    </div>
+    <div class="form-group">
+        <input type="email" name="Email" id="txtEmail" class="form-control bg-white" placeholder="Email*" />
+    </div>
+    <div class="form-group">
+        <input type="text" name="DiaChi" id="txtAddress" class="form-control bg-white" placeholder="Địa chỉ*" />
+    </div>
+    <div class="form-group">
+        <textarea class="form-control bg-white" name="NoiDung" id="txtContent" placeholder="Nhập nội dung*" rows="3"></textarea>
+    </div>
+}
+

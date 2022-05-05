@@ -1,0 +1,99 @@
+﻿@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
+@using Microsoft.AspNetCore.Identity
+@using Newtonsoft.Json
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDbContext _context;
+
+@{
+    var currentUser = new ApplicationUser();
+    if (SignInManager.IsSignedIn(User))
+    {
+        var userId = UserManager.GetUserId(User);
+        if (userId != null)
+        {
+            currentUser = _context.Users.Find(Guid.Parse(userId));
+        }
+    }
+
+}
+
+<section class="header-part">
+    <div class="container">
+        <div class="header-content">
+            <div class="header-media-group">
+                <button class="header-user">
+                    <img src="~/images/user.png" alt="user" />
+                </button>
+                <a href="./index.html">
+                    <img src="~/logo-horizone.png" alt="logo" />
+                </a>
+                <button class="header-src">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <a href="@Url.Action("Index","Home", new {
+                Area =""
+            })" class="header-logo">
+                <img src="~/logo-horizone.png" alt="logo" />
+            </a>
+
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a class="header-widget text-light"
+               href="@Url.Action("Index", "Profile", new {Area = ""})"
+               title="Manage">
+                    <img src="~/images/user.png" alt="user" /><span class="text-light">Chào <strong >@currentUser.HoTen</strong></span>
+                </a>
+
+                <form style="margin-left: 30px;" class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-light" style="border-radius: 0px; border: none">Thoát </button>
+                </form>
+            }
+            else
+            {
+                <div class="header-widget" title="Tài khoản">
+                    <img src="~/images/user.png" alt="user" />
+                    <div class="login-register">
+                        <span >
+                            <a asp-area="Identity" class="text-light" asp-page="/Account/Register">Đăng kí</a>
+                        </span>
+                        <span >
+                            <a asp-area="Identity" class="text-light" asp-page="/Account/Login">Đăng nhập</a>
+
+                        </span>
+                    </div>
+                </div>
+            }
+
+            <div class="header-form">
+                <input id="keyword" type="text" placeholder="Tìm kiếm..." />
+                <button type="button" onclick="onSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="header-widget-group">
+                <a class="header-widget header-cart" title="Cartlist" href="/Checkout/Index">
+                    <i class="fas fa-shopping-bag"></i><sup id="hdk-count">@ViewBag.cartpronumber</sup>
+                    @if (ViewBag.cartpronumber == 0)
+                    {
+                        <span class="text-light">Tổng<small id="total-amount">Chưa có sản phẩm</small></span>
+                    }
+                    else
+                    {
+                        <span class="text-light">Tổng<small id="total-amount">Có @ViewBag.cartpronumber sản phẩm </small></span>
+                    }
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    const onSearch = () => {
+        const keyword = document.getElementById("keyword").value;
+
+        window.location = `/Product/Search?keyword=${keyword}`;
+    }
+</script>

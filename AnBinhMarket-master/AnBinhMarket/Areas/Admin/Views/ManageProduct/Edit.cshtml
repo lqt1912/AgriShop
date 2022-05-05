@@ -1,0 +1,120 @@
+﻿@using System.Web
+@model AnBinhMarket.Data.Entities.SanPham
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var ImagePath = "~/products/" + Model.HinhAnh;
+
+}
+
+
+@section Scripts {
+<script href="~/bundles/jqueryval"> </script>
+<script src="/Asset/plugins/ckeditor/ckeditor.js"></script>
+<script>
+    var editor = CKEDITOR.replace('txtContent', {
+        customConfig: '/Asset/plugins/ckeditor/config.js'
+    })
+</script>
+}
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Sửa sản phẩm @Model.TenSP</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Form -->
+                    <form method="post" action="@Url.Action("Edit","ManageProduct")" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label><strong>Mã sản phẩm</strong></label>
+                            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Tên sản phẩm</strong></label>
+                            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4"><strong>Ảnh đại diện</strong></label>
+                            <img id="output" class="img-rounded" width="200" height="200" src="@Url.Content(@ImagePath)" alt="Ảnh" />
+                            <p class="text-center"><label for="ufile" style="cursor:pointer;">Chọn file ảnh</label></p>
+                            <input name="HinhAnh" id="ufile" type="file" style="display:none;" onchange="loadFile(event)" />
+                            @Html.HiddenFor(model => model.HinhAnh)
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Giá bán</strong></label>
+                            @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Giá khuyến mãi</strong></label>
+                            @Html.EditorFor(model => model.GiaKM, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.GiaKM, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Thương hiệu</strong></label>
+                            @Html.DropDownList("MaTH", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MaTH, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Trọng lượng</strong></label>
+                            @Html.EditorFor(model => model.TrongLuong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TrongLuong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Số lượng</strong></label>
+                            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Danh mục</strong></label>
+                            @Html.DropDownList("MaDanhMuc", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MaDanhMuc, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for=""><strong>Mô tả</strong></label>
+
+                            @Html.TextAreaFor(model =>model.MoTa, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.HiddenFor(model => model.NgayTao, new { @Value = Model.NgayTao })
+
+                        <div class="mt-4">
+                            <button class="btn btn-primary" type="submit">
+                                Cập nhật
+                            </button>
+                            <a href="@Url.Action("Index","ManageProduct")" class="btn btn-link">Huỷ</a>
+                        </div>
+                    </form>
+                    <!-- /Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0])
+    }
+</script>
+

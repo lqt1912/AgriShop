@@ -1,0 +1,99 @@
+﻿@using AnBinhMarket.Data
+@using AnBinhMarket.Data.Entities
+@using Microsoft.EntityFrameworkCore
+@model SanPham
+@inject ApplicationDbContext _context
+
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section styles{
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" href="~/Asset/css/bootstrap-datetimepicker.min.css" />
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" href="~/Asset/plugins/datatables/datatables.min.css" />
+    <link href="~/Asset/css/material-dashboard.css" rel="stylesheet" />
+}
+<!-- Start alert -->
+<div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="page-title">Thống kê số lượng sản phẩm của từng danh mục</h3>
+            </div>
+            <div class="col-auto">
+                <a href="@Url.Action("Index", "Manage")"
+                   class="btn btn-primary ml-3">
+                    Trở về trang thống kê
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+    <!-- Start alert -->
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div style="display: none" id="deletee" class="alert alert-danger text-center" role="alert"></div>
+        </div>
+        <div class="col-4"></div>
+
+    </div>
+    <!-- End alert -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        @{
+                            var danhmuc = _context.SanPhams.Include(x=>x.DanhMuc).GroupBy(s => s.MaDanhMuc).Select(g => new
+                            {
+                                tendanhmuc = g.FirstOrDefault().DanhMuc.TenDanhMuc,
+                                soluong = g.Sum(s => s.SoLuong),
+                                madanhmuc = g.FirstOrDefault().DanhMuc.Id
+                            }).ToList();
+
+                            <table class="table table-hover table-center mb-0 datatable">
+                                <thead>
+                                    <tr>
+
+                                        <th>Tên dannh mục</th>
+                                        <th>Tổng số lượng</th>
+                                        <th class="text-right">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in danhmuc)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.tendanhmuc)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.soluong)</td>
+                                            <td class="text-right">
+                                                <a href="@Url.Action("ProductDetails","Manage",new { id = item.madanhmuc})"
+                                                   class="btn btn-sm bg-primary-light mr-2">
+                                                    <i class="far fa-eye mr-1"></i>Chi tiết
+                                                </a>
+
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+
+                            </table>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

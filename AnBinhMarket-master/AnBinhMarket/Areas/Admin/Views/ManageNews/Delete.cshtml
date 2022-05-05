@@ -1,0 +1,69 @@
+﻿@using AnBinhMarket.Data.Entities
+@model TinTuc
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var ImagePath = "~/news/" + Model.HinhAnh;
+}
+
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Xóa tin tức</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Form -->
+                  
+
+                        <div class="form-group">
+                            <label><strong>Mã tin tức:</strong> </label>
+                            @Html.DisplayFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Tiêu đề:</strong> </label>
+                            @Html.DisplayFor(model => model.TieuDe, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4"><strong>Ảnh đại diện:</strong></label>
+                            <img id="output" class="img-rounded" width="200" height="200" src="@Url.Content(@ImagePath)" alt="Ảnh" />
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Mô tả ngắn:</strong></label>
+                            @Html.DisplayFor(model => model.MoTaNgan, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Mô tả chi tiết:</strong> </label>
+                            <br />
+                            @Html.Raw(@Model.MoTaChiTiet)
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Người viết:</strong></label>
+                            @ViewBag.NguoiViet.HoTen
+                        </div>
+                        <div class="mt-4">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <button class="btn btn-primary" type="submit">
+                                    Xóa
+                                </button>
+                                <a href="@Url.Action("Index","ManageNews")" class="btn btn-link">Huỷ</a>
+                            }
+                        </div>
+              
+                    <!-- /Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

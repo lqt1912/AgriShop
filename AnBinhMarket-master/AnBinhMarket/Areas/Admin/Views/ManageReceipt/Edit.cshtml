@@ -1,0 +1,76 @@
+﻿@model HoaDon
+@using AnBinhMarket.Data.Entities
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Chỉnh sửa hóa đơn</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.MaGioHang)
+                            @Html.HiddenFor(model => model.GioHang.TaiKhoan.HoTen)
+                            @Html.HiddenFor(model => model.NgayTao)
+                            @Html.HiddenFor(model => model.PhiShip)
+                            @Html.HiddenFor(model => model.ChuY)
+                            @Html.HiddenFor(model => model.DiaChi)
+
+
+                            @{
+                                var selectList = new SelectList(
+                                new List<SelectListItem>
+                {
+                        new SelectListItem {Text = "Chờ xác nhận", Value = "Chờ xác nhận"},
+                        new SelectListItem {Text = "Đã xác nhận", Value = "Đã xác nhận"},
+                        new SelectListItem {Text = "Đang lấy hàng", Value = "Đang lấy hàng"},
+                        new SelectListItem {Text = "Đang vận chuyển", Value = "Đang vận chuyển"},
+                        new SelectListItem {Text = "Đã giao", Value = "Đã giao"},
+                        new SelectListItem {Text = "Đã hủy", Value = "Đã hủy"},
+                }, "Value", "Text");
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TrangThai, "Tình trạng", htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.TrangThai, selectList, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Lưu" class="btn btn-sm btn-primary normal-text" />
+                                    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-sm btn-primary normal-text" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <br />
+                <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+            }
+        </div>
+    </div>
+</div>
+<script href="~/bundles/jqueryval"></script>

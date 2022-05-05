@@ -1,0 +1,89 @@
+﻿@using AnBinhMarket.Data.Entities
+@using System.Web
+@model SanPham
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+<link href="~/css/custom/product-detaill.css" rel="stylesheet" />
+}
+
+@await Component.InvokeAsync("_BreadcrumbLevelTwo", new { id = Guid.Parse(ViewContext.RouteData.Values["id"].ToString()) })
+
+<section class="inner-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 text-center">
+                <div style="height: 400px" class="bg-white rounded">
+                    <img class="img-" style="height: 100%" src="@Url.Content("~/products/" + @Model.HinhAnh)"
+                         alt="product" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="details-content" style="height: 400px">
+                    <h3 class="details-name">
+                        <a>@Model.TenSP</a>
+                    </h3>
+                    @if (Model.GiaKM > 0 && Model.Gia > Model.GiaKM)
+                    {
+                        <h3 class="details-price">
+                            <span><s>@string.Format("{0:#,##}", Model.Gia) vnđ</s></span>
+                        </h3>
+                        <h3 class="details-price">
+                            <span style="color: red">@string.Format("{0:#,##}", Model.GiaKM) vnđ</span>
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3 class="details-price">
+                            <span>@string.Format("{0:#,##}", Model.Gia) vnđ</span>
+                        </h3>
+                    }
+
+                    <p class="details-desc">
+                        Trọng lượng: @Model.TrongLuong
+                    </p>
+                    <p class="details-desc">
+                        Thương hiệu: @Model.ThuongHieu.TenHuongHieu
+                    </p>
+                    <p class="details-desc">
+                        Tình trạng:
+                        @if (Model.SoLuong > 0)
+                        {
+                            <label class="details-label new">Còn hàng</label>
+                        }
+                        else
+                        {
+                            <label class="details-label off">Hết hàng</label>
+                        }
+                    </p>
+                    <div class="details-add-group">
+                        <a class="product-add" title="Add to Cart" href="/Checkout/Additem?productId=@Model.Id&quantity=1">
+                            <i class="fas fa-shopping-basket"></i><span>Thêm vào giỏ hàng</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="inner-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-details-frame">
+                    <h3 class="frame-title">Mô tả sản phẩm</h3>
+                    <div class="tab-descrip">
+                        <p>
+                            @Html.Raw(HttpUtility.HtmlDecode(Model.MoTa))
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

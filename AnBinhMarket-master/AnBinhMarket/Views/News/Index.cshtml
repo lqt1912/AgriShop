@@ -1,0 +1,49 @@
+﻿@model X.PagedList.IPagedList<TinTuc>
+@using AnBinhMarket.Data.Entities
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section recent-part">
+    <div class="container bg-white py-4 my-3">
+        <h5 class="title_new">Danh Sách Tin Tức </h5>
+        <div class="row new_item">
+            @foreach (var item in Model)
+            {
+                <div class="row my-3">
+                    <div class="col-lg-3 col-md-3">
+                        <img src="@Url.Content("~/news/" + item.HinhAnh)"
+                         alt="product" style="width:100%;height:200px" class="img-responsive center-block" />
+                        @*<img src="./wwwroot/images/tintuc1.jpg"
+                            alt="product" width="100%" height="200px" class="img-responsive center-block" />*@
+                    </div>
+                    <div class="col-lg-9 col-md-9">
+                        <h5 class="title_content">
+                            <a href="@Url.Action("Details", "News", new { id = item.Id })">@item.TieuDe</a>
+                        </h5>
+                        <span class="short_description">
+                            @item.MoTaNgan
+                        </span>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions()
+                    {
+                    LiElementClasses = new string[] { "page-item", "page-link" }
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+

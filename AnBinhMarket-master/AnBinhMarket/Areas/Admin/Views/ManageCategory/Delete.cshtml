@@ -1,0 +1,62 @@
+﻿@model AnBinhMarket.Data.Entities.DanhMuc
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Bạn có chắc chắn muốn xóa không?</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="card">
+                <div class="card-body">
+                    
+                        @Html.HiddenFor(model => model.Id)
+                        <div class="form-group">
+                            <label><strong>Tên danh mục:</strong></label>
+                            @Html.DisplayFor(model => model.Id)
+
+
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Ngày tạo:</strong></label>
+                            @Html.DisplayFor(model => model.NgayTao)
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Ngày cập nhật:</strong></label>
+                            @Html.DisplayFor(model => model.NgayCapNhat)
+                        </div>
+                        <div class="mt-4">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-primary" type="submit">
+                                    Xóa
+                                </button>
+                                <a href="@Url.Action("Index","ManageCategory")" class="btn btn-link">Huỷ</a>
+                            }
+
+
+                        </div>
+                    
+                    <!-- /Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}

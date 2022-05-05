@@ -1,0 +1,42 @@
+﻿@section styles{
+    <link href="~/css/custom/contact2.css" rel="stylesheet" />
+}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script src="~/js/custom/contact.js"></script>
+}
+
+<section class="section">
+    <div class="container bg-white my-2 py-3">
+        <div class="row">
+            <div class="col-lg-6 contact">
+                <div class="row">
+                    <h5 class="title-contactus">GỬI PHẢN HỒI CHO CHÚNG TÔI</h5>
+                    <form class="user-form">
+                        @await Component.InvokeAsync("_DC_LienHe")
+                    </form>
+                    <div class="form-button">
+                        <button id="btnSend">Gửi phản hồi</button>
+                    </div>
+                </div>
+
+            </div>
+           
+        </div>
+    </div>
+</section>
+
+<script>
+     document.getElementById("btnSend").addEventListener('click', () => {
+        if (document.getElementById("txtAddress").value == '') {
+            alert('Vui lòng nhập địa chỉ của bạn')
+        }
+        else if (document.getElementById("txtContent").value == '') {
+            alert('Vui lòng nhập Nội dung')
+        }
+    })
+</script>
+
